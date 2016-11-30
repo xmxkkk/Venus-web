@@ -40,7 +40,7 @@ public class FetchTask {
 	
 	@Autowired
 	URLUtil URLUtil;
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 60000)
 	public void fetch() {
 		logger.info("[start]"+enable+","+url);
 		try{

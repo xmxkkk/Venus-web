@@ -21,7 +21,6 @@ public class App extends SpringBootServletInitializer {
 		System.setProperty("fetch-task-enable", "true");
 		System.setProperty("fetch-task-url", "${fetch-task-image-baseurl}/index.php?s=/home/data/core/id/{0}.html");
 		System.setProperty("fetch-task-image-path", "D:/workspace/Venus");
-		System.setProperty("upload-image-path-dir", "C:/Users/Administrator/Desktop/lu_stock_admin/");
 		
 		SpringApplication.run(App.class, args);
 	}
