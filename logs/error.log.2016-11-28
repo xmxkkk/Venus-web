@@ -1,4 +1,0 @@
-2016-11-28 15:55:42,576	ERROR	[venus.task.analyse.LuStrategyTask.init][	312] [except]com.alibaba.fastjson.JSONArray cannot be cast to com.alibaba.fastjson.JSONObject
-2016-11-28 16:33:34,157	ERROR	[venus.task.analyse.LuStrategyTask.init][	319] [except]syntax error, position at 0, name id
-2016-11-28 16:44:52,927	ERROR	[venus.task.analyse.LuStrategyTask.init][	319] [except]java.lang.String cannot be cast to com.alibaba.fastjson.JSONObject
-2016-11-28 16:45:54,946	ERROR	[venus.task.analyse.LuStrategyTask.init][	319] [except]java.lang.String cannot be cast to com.alibaba.fastjson.JSONObject
