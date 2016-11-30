@@ -1,0 +1,8 @@
+2016-11-30 09:40:40,048	ERROR	[venusweb.task.FetchTask.fetch][	138] [except]D:\workspace\Venus\Uploads\Picture\2016-11-29\583d26fc39a2d.jpg (系统找不到指定的路径。)
+2016-11-30 09:40:44,172	ERROR	[venusweb.task.FetchTask.fetch][	138] [except]D:\workspace\Venus\Uploads\Picture\2016-11-29\583d26fc39a2d.jpg (系统找不到指定的路径。)
+2016-11-30 09:41:46,436	ERROR	[venusweb.task.FetchTask.fetch][	138] [except]D:\workspace\Venus\Uploads\Picture\2016-11-29\583d26fc39a2d.jpg (系统找不到指定的路径。)
+2016-11-30 09:42:47,877	ERROR	[venusweb.task.FetchTask.fetch][	140] [except]系统找不到指定的路径。
+2016-11-30 09:47:23,456	ERROR	[venusweb.task.FetchTask.fetch][	145] [except]127.0.0.1null
+2016-11-30 09:47:25,024	ERROR	[venusweb.task.FetchTask.fetch][	145] [except]127.0.0.1null
+2016-11-30 09:47:25,109	ERROR	[venusweb.task.FetchTask.fetch][	145] [except]127.0.0.1null
+2016-11-30 09:47:25,201	ERROR	[venusweb.task.FetchTask.fetch][	145] [except]127.0.0.1null

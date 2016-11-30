@@ -1,0 +1,41 @@
+<ion-view ng-controller="FilterCtrl" ng-init="init()">
+	<ion-content style="background:#f3f3f3">
+	    <ion-list>
+		    <div class="item item-divider">
+			    价格
+			</div>
+	    	<div class="item" style="padding-top:8px;padding-left:4px;padding-right:4px;">
+			    <div class="button-bar bar-light">
+		          <a class="button" ng-click="check('price',0)" ng-class="{true: 'button-dark', false: ''}[condition.price[0]]">小于20元</a>
+		          <a class="button" ng-click="check('price',1)" ng-class="{true: 'button-dark', false: ''}[condition.price[1]]">20~50元</a>
+		          <a class="button" ng-click="check('price',2)" ng-class="{true: 'button-dark', false: ''}[condition.price[2]]">大于50元</a>
+		        </div>
+	    	</div>
+	    	<div class="item item-divider">
+			    总市值
+			</div>
+	    	<div class="item" style="padding-top:8px;padding-left:4px;padding-right:4px;">
+			    <div class="button-bar bar-light">
+		          <a class="button" ng-click="check('shizhi',0)" ng-class="{true: 'button-dark', false: ''}[condition.shizhi[0]]">小于10亿</a>
+		          <a class="button" ng-click="check('shizhi',1)" ng-class="{true: 'button-dark', false: ''}[condition.shizhi[1]]">10~200亿</a>
+		          <a class="button" ng-click="check('shizhi',2)" ng-class="{true: 'button-dark', false: ''}[condition.shizhi[2]]">大于200亿</a>
+		        </div>
+	    	</div>
+	    	<div class="item item-divider">
+			    市盈率
+			</div>
+	    	<div class="item" style="padding-top:8px;padding-left:4px;padding-right:4px;">
+			    <div class="button-bar bar-light">
+		          <a class="button" ng-click="check('shiyinglv',0)" ng-class="{true: 'button-dark', false: ''}[condition.shiyinglv[0]]">小于15</a>
+		          <a class="button" ng-click="check('shiyinglv',1)" ng-class="{true: 'button-dark', false: ''}[condition.shiyinglv[1]]">15~50</a>
+		          <a class="button" ng-click="check('shiyinglv',2)" ng-class="{true: 'button-dark', false: ''}[condition.shiyinglv[2]]">大于50</a>
+		        </div>
+	    	</div>
+
+
+		</ion-list>
+	</ion-content>
+	<div class="bar bar-footer bar-dark">
+		<div class="title" ng-click="closeFilterAction()">确定</div>
+	</div>
+</ion-view>

@@ -1,0 +1,29 @@
+/* Empty. Add your own CSS if you like */
+
+	.tab-title{font-size:12pt;font-family: "微软雅黑"}
+	.tabs-top > .tabs{top:0px;}
+	.index-btn-color-0{background:#e3170d;}
+	.index-btn-color-1{background:#ff7f10;}
+	.index-btn-color-2{background:#ffd700;}
+	.index-btn-color-3{background:#f1b584;}
+	.index-btn-circle{position:absolute;right:20pt;bottom:15pt;width:46pt;height:46pt;border-radius:23pt;text-align:center;padding-top:18px;font-size:20pt;color:#f2f2f2;}
+	.index-subtitle{position:absolute;top:60px;left:15px;right:20px;color:#dfdfdf;font-size:14px;}
+	.index-mask{position:absolute;top:0px;background:#2f4159;opacity:0.6;width:100%;height:182px;}
+	.index-name{position:absolute;top:30px;left:20px;font-size:18pt;letter-spacing: 3px;color:#f3f3f3;}
+/*
+.tabs-striped.tabs-color-energized .tab-item.tab-item-active, .tabs-striped.tabs-color-energized .tab-item.active, .tabs-striped.tabs-color-energized .tab-item.activated {
+    margin-top: -2px;
+    color: #e2e2e2;
+    border: 0 solid #e2e2e2;
+}
+.tabs-striped.tabs-dark .tabs {
+    background-color: #2f4159;
+}
+	.tabs-striped.tabs-color-energized .tab-item.tab-item-active, .tabs-striped.tabs-color-energized .tab-item.active, .tabs-striped.tabs-color-energized .tab-item {
+    margin-top: -2px;
+    color: #e2e2e2;
+    border: 0 solid #e2e2e2;
+}
+.tabs-striped.tabs-dark .tabs {
+    background-color: #2f4159;
+}*/
