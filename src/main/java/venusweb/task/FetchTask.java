@@ -82,8 +82,10 @@ public class FetchTask {
 					for(int i=0;i<allLuStrategies.size();i++){
 						String img=allLuStrategies.get(i).getImg();
 						String url=imageBaseUrl+allLuStrategies.get(i).getImg();
-
+						
 						String filepath=imagePath+img;
+						
+						logger.info("[message]url="+url+",filepath="+filepath);
 						
 						File file=new File(filepath);
 						if(!file.exists()){

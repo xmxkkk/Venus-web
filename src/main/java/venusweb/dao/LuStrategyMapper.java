@@ -16,7 +16,7 @@ import venusweb.model.LuStrategy;
 @Mapper
 public interface LuStrategyMapper {
 	
-	@Select("select * from lu_strategy where status=#{status}")
+	@Select("select * from lu_strategy where status=#{status} order by id desc")
 	List<LuStrategy> findStatus(@Param("status")int status);
 
 	@Select("select * from lu_strategy")

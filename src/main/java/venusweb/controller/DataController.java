@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,16 +86,18 @@ public class DataController {
 	*/
 	
 	@RequestMapping("/all/{id}")
-	List<Map<String, Object>>  all(@PathVariable("id")Integer id){
-		return data(id);
+	List<Map<String, Object>>  all(@PathVariable("id")Integer id,HttpServletRequest request, HttpServletResponse response){
+		return data(id,request);
 	}
 	
 	@RequestMapping("/all")
-	List<Map<String, Object>>  all(){
-		return data(0);
+	List<Map<String, Object>>  all(HttpServletRequest request, HttpServletResponse response){
+		return data(0,request);
 	}
 	
-	private List<Map<String, Object>>  data(int id){
+	private List<Map<String, Object>>  data(int id,HttpServletRequest request){
+		String path=request.getContextPath();
+		
 		List<Map<String, Object>> result=new ArrayList<Map<String,Object>>();
 		
 		List<LuStrategy> list=null;
@@ -115,7 +120,7 @@ public class DataController {
 			temp.put("up", luStrategy.getUp());
 			temp.put("down", luStrategy.getDown());
 			temp.put("flat", luStrategy.getFlat());
-			temp.put("img", luStrategy.getImg());
+			temp.put("img", path+luStrategy.getImg());
 			temp.put("type", luStrategy.getType());
 
 			List<Map<String, Object>> stockList=new ArrayList<Map<String,Object>>();
