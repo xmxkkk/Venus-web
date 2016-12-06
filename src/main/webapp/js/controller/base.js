@@ -14,4 +14,11 @@ module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHisto
     else{
     	$rootScope.baseUrl="https://"+document.domain+":80/venus-web/";
     }
+    $rootScope.getImage = function(src) {
+    	if (src !== "") {
+    	    return src;  
+    	} else {
+    		return "./img/default.jpg"; 
+    	}
+    };
 }]);

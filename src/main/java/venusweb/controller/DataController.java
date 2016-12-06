@@ -1,5 +1,6 @@
 package venusweb.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,8 @@ import venusweb.model.LuStrategyStock;
 public class DataController {
 	@Autowired LuStrategyMapper luStrategyMapper;
 	@Autowired LuStrategyStockMapper luStrategyStockMapper;
-	
+	@Value("${fetch-task-image-path}")
+	String imagePath;
 	
 	/*
 	@Autowired PictureMapper pictureMapper;
@@ -113,6 +116,20 @@ public class DataController {
 			
 			LuStrategy luStrategy=list.get(i);
 			
+			String img=luStrategy.getImg();
+			if(img==null || img.equals("null")){
+				img="./img/default.jpg";
+			}else if(img.startsWith("./img")){
+				
+			}else if(img.startsWith("/Uploads/Picture")){
+				img=imagePath+luStrategy.getImg();
+				if(new File(img).exists()){
+					img=path+luStrategy.getImg();
+				}else{
+					img="./img/default.jpg";
+				}
+			}
+			
 			temp.put("i", i);
 			temp.put("id", luStrategy.getId());
 			temp.put("name", luStrategy.getTitle());
@@ -120,7 +137,7 @@ public class DataController {
 			temp.put("up", luStrategy.getUp());
 			temp.put("down", luStrategy.getDown());
 			temp.put("flat", luStrategy.getFlat());
-			temp.put("img", path+luStrategy.getImg());
+			temp.put("img", img);
 			temp.put("type", luStrategy.getType());
 
 			List<Map<String, Object>> stockList=new ArrayList<Map<String,Object>>();

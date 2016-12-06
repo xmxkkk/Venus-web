@@ -50,31 +50,39 @@ public class FetchTask {
 				
 				String json=URLUtil.url2str(venusweb.help.StringUtil.template(url,params), false);
 				if(!StringUtil.isBlank(json)){
+					
 					List<LuStrategy> luStrategies=JSONArray.parseArray(json,LuStrategy.class);
+					int cnt=0;
 					for(int i=0;i<luStrategies.size();i++){
-						int id=luStrategies.get(i).getId();
-						LuStrategy luStrategy=luStrategyMapper.findId(id);
-						if(luStrategy==null){
-							luStrategyMapper.insert(luStrategies.get(i));
+						LuStrategy luStrategy=luStrategies.get(i);
+						int id=luStrategy.getId();
+						if(id<=0)continue;
+						
+						LuStrategy luStrategyDb=luStrategyMapper.findId(id);
+						if(luStrategyDb==null){
+							luStrategyMapper.insert(luStrategy);
 						}else{
-							luStrategyMapper.update(luStrategies.get(i));
+							luStrategyMapper.update(luStrategy);
 						}
+						cnt++;
 					}
 					
 					List<LuStrategy> allLuStrategies=luStrategyMapper.find();
-					for(int i=0;i<allLuStrategies.size();i++){
-						boolean isDel=true;
-						LuStrategy dbLuStrategies=allLuStrategies.get(i);
-						
-						for(int j=0;j<luStrategies.size();j++){
-							LuStrategy luStrategy=luStrategies.get(j);
-							if(luStrategy.getId()==dbLuStrategies.getId()){
-								isDel=false;
-								break;
+					if(cnt>0){
+						for(int i=0;i<allLuStrategies.size();i++){
+							boolean isDel=true;
+							LuStrategy dbLuStrategies=allLuStrategies.get(i);
+							
+							for(int j=0;j<luStrategies.size();j++){
+								LuStrategy luStrategy=luStrategies.get(j);
+								if(luStrategy.getId()==dbLuStrategies.getId()){
+									isDel=false;
+									break;
+								}
 							}
-						}
-						if(isDel){
-							luStrategyMapper.delete(dbLuStrategies.getId());
+							if(isDel){
+								luStrategyMapper.delete(dbLuStrategies.getId());
+							}
 						}
 					}
 					
@@ -120,28 +128,36 @@ public class FetchTask {
 				json=URLUtil.url2str(venusweb.help.StringUtil.template(url,params), false);
 				if(!StringUtil.isBlank(json)){
 					List<LuStrategyStock> luStrategyStocks=JSONArray.parseArray(json,LuStrategyStock.class);
+					int cnt=0;
 					for(int i=0;i<luStrategyStocks.size();i++){
 						LuStrategyStock luStrategyStock=luStrategyStocks.get(i);
-						if(luStrategyStock==null){
+						int id=luStrategyStock.getId();
+						if(id<=0)continue;
+						
+						LuStrategyStock luStrategyStockDb=luStrategyStockMapper.findIdCode(luStrategyStock.getId(),luStrategyStock.getCode());
+						if(luStrategyStockDb==null){
 							luStrategyStockMapper.insert(luStrategyStock);
 						}else{
 							luStrategyStockMapper.update(luStrategyStock);
 						}
+						cnt++;
 					}
-					List<LuStrategyStock> allLuStrategyStocks=luStrategyStockMapper.find();
-					for(int i=0;i<allLuStrategyStocks.size();i++){
-						boolean isDel=true;
-						LuStrategyStock dbLuStrategyStock=allLuStrategyStocks.get(i);
-						
-						for(int j=0;j<luStrategyStocks.size();j++){
-							LuStrategyStock luStrategyStock=luStrategyStocks.get(j);
-							if(dbLuStrategyStock.getId()==luStrategyStock.getId() && dbLuStrategyStock.getCode().equals(luStrategyStock.getCode())){
-								isDel=false;
-								break;
+					if(cnt>0){
+						List<LuStrategyStock> allLuStrategyStocks=luStrategyStockMapper.find();
+						for(int i=0;i<allLuStrategyStocks.size();i++){
+							boolean isDel=true;
+							LuStrategyStock dbLuStrategyStock=allLuStrategyStocks.get(i);
+							
+							for(int j=0;j<luStrategyStocks.size();j++){
+								LuStrategyStock luStrategyStock=luStrategyStocks.get(j);
+								if(dbLuStrategyStock.getId()==luStrategyStock.getId() && dbLuStrategyStock.getCode().equals(luStrategyStock.getCode())){
+									isDel=false;
+									break;
+								}
 							}
-						}
-						if(isDel){
-							luStrategyStockMapper.deleteIdCode(dbLuStrategyStock.getId(), dbLuStrategyStock.getCode());
+							if(isDel){
+								luStrategyStockMapper.deleteIdCode(dbLuStrategyStock.getId(), dbLuStrategyStock.getCode());
+							}
 						}
 					}
 				}
