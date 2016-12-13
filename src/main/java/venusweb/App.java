@@ -19,6 +19,7 @@ public class App extends SpringBootServletInitializer {
 		System.setProperty("fetch-task-image-path", "D:/workspace/Venus");
 		
 		System.out.println("hello");
+		
 //		System.setProperty("server.servlet-path", "/venus-web");
 		
 		
