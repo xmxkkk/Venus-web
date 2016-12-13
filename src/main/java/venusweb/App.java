@@ -12,7 +12,6 @@ public class App extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 
-		
 		System.setProperty("fetch-task-image-baseurl", "http://127.0.0.1");
 		System.setProperty("fetch-task-enable", "true");
 		System.setProperty("fetch-task-url", "${fetch-task-image-baseurl}/index.php?s=/home/data/core/id/{0}.html");
