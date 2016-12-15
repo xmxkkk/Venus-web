@@ -12,13 +12,12 @@ public class App extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 
-		System.setProperty("fetch-task-image-baseurl", "http://127.0.0.1");
+		System.setProperty("fetch-task-image-baseurl", "http://127.0.0.1:8080");
 		System.setProperty("fetch-task-enable", "true");
 		System.setProperty("fetch-task-url", "${fetch-task-image-baseurl}/index.php?s=/home/data/core/id/{0}.html");
 		System.setProperty("fetch-task-image-path", "D:/workspace/Venus");
 		
-//		System.setProperty("server.servlet-path", "/venus-web");
-		
+		System.setProperty("server.servlet-path", "/venus-web");
 		
 		SpringApplication.run(App.class, args);
 	}

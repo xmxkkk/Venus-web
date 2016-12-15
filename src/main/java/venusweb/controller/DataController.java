@@ -28,66 +28,6 @@ public class DataController {
 	@Value("${fetch-task-image-path}")
 	String imagePath;
 	
-	/*
-	@Autowired PictureMapper pictureMapper;
-	@Value("${upload-image-path-dir}")
-	String uploadImagePathDir;
-	@SuppressWarnings("rawtypes")
-	@RequestMapping("/core/{dataid}")
-	List core(@PathVariable("dataid")Integer dataid){
-		List list=new ArrayList();
-		if(dataid==1){
-			list=luStrategyMapper.findStatus(1);
-			for(int i=0;i<list.size();i++){
-				LuStrategy luStrategy=(LuStrategy)list.get(i);
-				String img=luStrategy.getImg();
-				
-				Picture picture=pictureMapper.find(img);
-				if(picture!=null)
-					luStrategy.setImg(picture.getPath());
-			}
-		}else if(dataid==2){
-			list=luStrategyStockMapper.findStatus(1);
-		}
-		return list;
-	}
-	
-	@RequestMapping(value = "/getImage/{path}")
-	public void getImage(@PathVariable("path")String path,HttpServletRequest request, HttpServletResponse response) {
-		FileInputStream fis = null;
-		try {
-			path=CommonUtil.decode(path);
-			
-			Picture picture=pictureMapper.findPath(path);
-			if(picture!=null){
-				if(path.toLowerCase().endsWith("jpg") || path.toLowerCase().endsWith("jpeg")){
-					response.setContentType("image/jpeg");
-				}else if(path.toLowerCase().endsWith("png")){
-					response.setContentType("image/png");
-				}
-				
-				OutputStream out = response.getOutputStream();
-				File file = new File(uploadImagePathDir+ File.separator + picture.getPath());
-				fis = new FileInputStream(file);
-				byte[] b = new byte[fis.available()];
-				fis.read(b);
-				out.write(b);
-				out.flush();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (fis != null) {
-				try {
-					fis.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	*/
-	
 	@RequestMapping("/all/{id}")
 	List<Map<String, Object>>  all(@PathVariable("id")Integer id,HttpServletRequest request, HttpServletResponse response){
 		return data(id,request);

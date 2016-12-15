@@ -6,8 +6,8 @@ module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHisto
       console.log(page+"/"+params.id);
       $state.go(page,params);
     };
-    if(document.domain=="localhost"){
-    	$rootScope.baseUrl="http://localhost:8080/";
+    if(document.domain=="localhost"||document.domain=="127.0.0.1"){
+    	$rootScope.baseUrl="http://"+document.domain+":8080/venus-web/";
     }else if(document.domain=="123.207.115.17"){
     	$rootScope.baseUrl="http://"+document.domain+":8080/venus-web/";
     }
