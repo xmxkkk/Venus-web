@@ -1,4 +1,4 @@
-var module=angular.module('starter.controllers', ['ionic','starter.services']);
+var module=angular.module('starter.base', ['ionic','starter.services']);
 
 module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHistory'
   ,function($rootScope,$state,$ionicModal,$location,$http,$ionicHistory){
