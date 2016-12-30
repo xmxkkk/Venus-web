@@ -12,14 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cglib.beans.BeanCopier.Generator;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import venusweb.dao.LuStrategyMapper;
 import venusweb.dao.LuStrategyStockMapper;
-import venusweb.help.NumUtil;
 import venusweb.model.LuStrategy;
 import venusweb.model.LuStrategyStock;
 
@@ -116,7 +114,6 @@ public class DataController {
 			result.add(temp);
 		}
 		
-//		return JSON.toJSONString(result);
 		return result;
 	}
 	
