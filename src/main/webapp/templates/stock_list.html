@@ -1,39 +1,37 @@
 <ion-view>
 	<ion-content class="has-tabs" ng-controller="StockListCtrl" ng-init="init()" style="background:#f3f3f3;z-index:1;">
 	    <div>
-	    	<div style="position:relative;">
+	    	<div style="position:relative;height:182px;overflow:hidden;">
 	    		<img ng-src="{{initZH.img}}" width="100%" height="182px;">
-							<div class="index-mask">&nbsp;</div>
-							<div class="index-name">
-								{{initZH.name}}
+				<div class="index-mask"></div>
+				<div class="index-name">{{initZH.name}}</div>
+				<div class="mask">{{initZH.attr_small}} <span ng-show="initZH.attr_small_is" ng-click="go('attr',{id:initZH.id})" style="color:#fff;font-style:italic">查看详情&gt&gt</span></div>
+				<div>
+					<div class="index-subtitle" style="top:140px;left:70px;color:#fff;">
+						<div class="row" style="width:100%">
+							<div style="float:left;">
+								<i class="icon ion-arrow-graph-up-right"></i>
 							</div>
-							
-							<div style="position:absolute;top:60px;left:20px;right:20px;font-size:12pt;color:#c3c3c3;">{{initZH.attr}}</div>
-							<div>
-								<div class="index-subtitle" style="top:140px;left:70px;color:#fff;">
-									<div class="row" style="width:100%">
-										<div style="float:left;">
-											<i class="icon ion-arrow-graph-up-right"></i>
-										</div>
-										<div style="padding-left:3pt;float:left;">
-											涨{{initZH.up}}支
-										</div>
-										<div style="float:left;padding-left:15pt;">
-											<i class="icon ion-arrow-graph-down-right"></i>
-										</div>
-										<div style="padding-left:3pt;float:left;">
-											跌{{initZH.down}}支
-										</div>
-										<div style="float:left;padding-left:15pt;">
-											<i class="icon ion-navicon-round"></i>
-										</div>
-										<div style="padding-left:3pt;float:left;">
-											平{{initZH.flat}}支
-										</div>
-									</div>
-								</div>
+							<div style="padding-left:3pt;float:left;">
+								涨{{initZH.up}}支
 							</div>
+							<div style="float:left;padding-left:15pt;">
+								<i class="icon ion-arrow-graph-down-right"></i>
+							</div>
+							<div style="padding-left:3pt;float:left;">
+								跌{{initZH.down}}支
+							</div>
+							<div style="float:left;padding-left:15pt;">
+								<i class="icon ion-navicon-round"></i>
+							</div>
+							<div style="padding-left:3pt;float:left;">
+								平{{initZH.flat}}支
+							</div>
+						</div>
+					</div>
+				</div>
 	    	</div>
+	    	<div ng-hide="isHide" style="text-align:center;background:#f6f3d0;font-size:10pt;line-height:16pt;color:#777;" ng-click="hide()">本结果不构成投资建议，交易风险自负</div>
 			<div style="background:#fff;">
 				<div class="row" style="height:30pt;font-size:12pt;color:#333333;">
 					<div class="col col-33">股票</div>
@@ -41,13 +39,18 @@
 					<div class="col col-33" style="text-align:right;">涨跌幅</div>
 				</div>
 				<ion-list>
-				  <ion-item class="row" style="" ng-repeat="stock in stocks">
-				    <div class="col col-33">
-				    	<div style="font-size:12pt;color:#333333;">{{stock.name}}</div>
-				    	<div style="line-height:10px;font-size:10pt;color:#aaaaaa;">{{stock.code}}</div>
-				    </div>
-				    <div class="col col-33" style="text-align:right;padding-top:7pt;">{{stock.price}}</div>
-				    <div class="col col-33" ng-class="{true: 'change_rate_down', false: 'change_rate_up'}[stock.change_rate<0]" style="text-align:right;padding-top:7pt;">{{stock.change_rate}}%</div>
+				  <ion-item style="padding:0px;margin:0px;border-bottom:0px;" ng-repeat="stock in stocks">
+					  <div class="row">
+					    <div class="col col-33">
+					    	<div style="font-size:12pt;color:#333333;">{{stock.name}}</div>
+					    	<div style="line-height:10px;font-size:10pt;color:#aaaaaa;">{{stock.code}}</div>
+					    </div>
+					    <div class="col col-33" style="text-align:right;padding-top:7pt;">{{stock.price}}</div>
+					    <div class="col col-33" ng-class="{true: 'change_rate_down', false: 'change_rate_up'}[stock.change_rate<0]" style="text-align:right;padding-top:7pt;">{{stock.change_rate}}%</div>
+					  </div>
+					  <div class="row item-text-wrap" style="background:#f8f8f8;margin-left:10px;margin-right:10px;margin-bottom:10px;width:auto;margin-top:-5px;padding:0px;font-size:10pt;color:#777;">
+					 	<span style="padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;"> 入选时间:2016-06-08，入选价格:1.00，累计涨跌:<span style="">20%</span></span>
+					  </div>
 				  </ion-item>
 				</ion-list>
 			</div>

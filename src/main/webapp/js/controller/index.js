@@ -11,7 +11,7 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
         $scope.init=function(){
             $http.post($rootScope.baseUrl+'data/all',{}).success(function(data){
                 $scope.datas=data;
-                ObjectFactory.set("datas",data);
+                ObjectFactory.set("datas",$scope.datas);
             });
     	};
 

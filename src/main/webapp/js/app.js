@@ -40,6 +40,13 @@ angular.module('starter', ['ionic','starter.base'])
     cache:false,
     templateUrl: 'templates/stock_list.html'
   })
+  .state('attr',{
+    url:'/attr/:id',
+    abstract: false,
+    controller: 'AttrCtrl',
+    cache:false,
+    templateUrl: 'templates/attr.html'
+  })
   ;
   $urlRouterProvider.otherwise('/index');
 

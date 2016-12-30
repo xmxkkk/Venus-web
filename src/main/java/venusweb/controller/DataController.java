@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cglib.beans.BeanCopier.Generator;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,7 +78,13 @@ public class DataController {
 			temp.put("i", i);
 			temp.put("id", luStrategy.getId());
 			temp.put("name", luStrategy.getTitle());
-			temp.put("attr", luStrategy.getAttr());
+			
+			String attr=luStrategy.getAttr();
+//			if(attr.length()>50){
+//				attr=attr.substring(0,50)+"<span ng-click=\"go('attr',{id:\""+luStrategy.getId()+"\"})\">查看详情&gt&gt</span>";
+//			}
+			
+			temp.put("attr", attr);
 			temp.put("up", luStrategy.getUp());
 			temp.put("down", luStrategy.getDown());
 			temp.put("flat", luStrategy.getFlat());

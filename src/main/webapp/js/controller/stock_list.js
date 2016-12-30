@@ -35,9 +35,18 @@ module.controller('StockListCtrl',['$scope','$rootScope','$state','$http','$stat
 			for(var i=0;i<$scope.initZH.stocks.length;i++){
 				$scope.stocks[i]=$scope.initZH.stocks[i];
 			}
-	    	
+			if($scope.initZH.attr.length>50){
+				$scope.initZH.attr_small=$scope.initZH.attr.substring(0,50);
+				$scope.initZH.attr_small_is=true;
+			}else{
+				$scope.initZH.attr_small=$scope.initZH.attr;
+				$scope.initZH.attr_small_is=false;
+			}
     	}
-
+    	$scope.isHide=false;
+    	$scope.hide=function(){
+    		$scope.isHide=true;
+    	}
     	$scope.init=function(){
 			if(!ObjectFactory.get("datas")){
 	    		 $http.post($rootScope.baseUrl+'data/all/'+$stateParams.id,{}).success(function(data){
@@ -47,6 +56,7 @@ module.controller('StockListCtrl',['$scope','$rootScope','$state','$http','$stat
 	    	}else{
 	    		dataCB();
 	    	}
+			
 	    	$rootScope.condition={};
     	};
 		$ionicModal.fromTemplateUrl('templates/filterModel.html', {
@@ -107,15 +117,15 @@ module.controller('StockListCtrl',['$scope','$rootScope','$state','$http','$stat
 			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
 				for(var i=0;i<$scope.stocks.length;i++){
 					if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<1000000000){
+				       	if($scope.stocks[i][condiName]<10000000000){
 				        	newStocks[newStocks.length]=$scope.stocks[i];
 				        }
 				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=1000000000 && $scope.stocks[i][condiName]<=20000000000){
+				        if($scope.stocks[i][condiName]>=10000000000 && $scope.stocks[i][condiName]<=50000000000){
 				        	newStocks[newStocks.length]=$scope.stocks[i];
 				        }
 				    }else if($rootScope.condition[condiName][2]){
-				        if($scope.stocks[i][condiName]>20000000000){
+				        if($scope.stocks[i][condiName]>50000000000){
 				        	newStocks[newStocks.length]=$scope.stocks[i];
 				        }
 				    }
