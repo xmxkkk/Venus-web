@@ -89,6 +89,10 @@ public class FetchTask {
 					allLuStrategies=luStrategyMapper.find();
 					for(int i=0;i<allLuStrategies.size();i++){
 						String img=allLuStrategies.get(i).getImg();
+						if(img==null||img.equals("null")){
+							continue;
+						}
+						
 						String url=imageBaseUrl+allLuStrategies.get(i).getImg();
 						
 						String filepath=imagePath+img;

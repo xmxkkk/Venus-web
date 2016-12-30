@@ -13,7 +13,6 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
                 $scope.datas=data;
                 ObjectFactory.set("datas",data);
             });
-
     	};
 
     	$scope.selectTabWithIndex = function(index) {

@@ -1,6 +1,7 @@
 package venusweb.controller;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import venusweb.dao.LuStrategyMapper;
 import venusweb.dao.LuStrategyStockMapper;
+import venusweb.help.NumUtil;
 import venusweb.model.LuStrategy;
 import venusweb.model.LuStrategyStock;
 
@@ -40,6 +42,8 @@ public class DataController {
 	
 	private List<Map<String, Object>>  data(int id,HttpServletRequest request){
 		String path=request.getContextPath();
+		
+		DecimalFormat df = new DecimalFormat("######0.00");   
 		
 		List<Map<String, Object>> result=new ArrayList<Map<String,Object>>();
 		
@@ -92,8 +96,8 @@ public class DataController {
 				Map<String, Object> temp2=new HashMap<String, Object>();
 				temp2.put("code", luStrategyStock.getMarket()+luStrategyStock.getCode());
 				temp2.put("name", luStrategyStock.getName());
-				temp2.put("price", luStrategyStock.getCurr_price());
-				temp2.put("change_rate", luStrategyStock.getChange_rate());
+				temp2.put("price", df.format(luStrategyStock.getCurr_price()));
+				temp2.put("change_rate", df.format(luStrategyStock.getChange_rate()));
 				temp2.put("shizhi", luStrategyStock.getZongshizhi());
 				temp2.put("shiyinglv", luStrategyStock.getShiyinglvttm());
 				
