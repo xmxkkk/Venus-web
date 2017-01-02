@@ -48,8 +48,8 @@
 					    <div class="col col-33" style="text-align:right;padding-top:7pt;">{{stock.price}}</div>
 					    <div class="col col-33" ng-class="{true: 'change_rate_down', false: 'change_rate_up'}[stock.change_rate<0]" style="text-align:right;padding-top:7pt;">{{stock.change_rate}}%</div>
 					  </div>
-					  <div class="row item-text-wrap" style="background:#f8f8f8;margin-left:10px;margin-right:10px;margin-bottom:10px;width:auto;margin-top:-5px;padding:0px;font-size:10pt;color:#777;">
-					 	<span style="padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;"> 入选时间:2016-06-08，入选价格:1.00，累计涨跌:<span style="">20%</span></span>
+					  <div class="row item-text-wrap" style="background:#f8f8f8;margin-left:5px;margin-right:5px;margin-bottom:8px;width:auto;margin-top:-5px;padding:0px;font-size:10pt;color:#777;">
+					 	<span style="padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;"> 入选时间:{{stock.join_date}}，入选价格:{{stock.join_price}}，累计涨跌:<span style="">{{stock.total_change_rate}}%</span></span>
 					  </div>
 				  </ion-item>
 				</ion-list>

@@ -14,23 +14,47 @@ public class LuStrategyStock {
 	Double zongshizhi;
 	Double shiyinglvttm;
 	String update_time;
-	public int getId() {
-		return id;
+	String join_date;
+	Double join_price;
+	Double join_price_fu;
+	Double curr_price_fu;
+	Double total_change_rate;
+	
+	public Double getTotal_change_rate() {
+		return total_change_rate;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setTotal_change_rate(Double total_change_rate) {
+		this.total_change_rate = total_change_rate;
 	}
-	public String getCode() {
-		return code;
+	public String getJoin_date() {
+		return join_date;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setJoin_date(String join_date) {
+		this.join_date = join_date;
 	}
-	public String getMarket() {
-		return market;
+	public Double getJoin_price() {
+		return join_price;
 	}
-	public void setMarket(String market) {
-		this.market = market;
+	public void setJoin_price(Double join_price) {
+		this.join_price = join_price;
+	}
+	public Double getJoin_price_fu() {
+		return join_price_fu;
+	}
+	public void setJoin_price_fu(Double join_price_fu) {
+		this.join_price_fu = join_price_fu;
+	}
+	public Double getCurr_price_fu() {
+		return curr_price_fu;
+	}
+	public void setCurr_price_fu(Double curr_price_fu) {
+		this.curr_price_fu = curr_price_fu;
+	}
+	public String getUpdate_time() {
+		return update_time;
+	}
+	public void setUpdate_time(String update_time) {
+		this.update_time = update_time;
 	}
 	public String getName() {
 		return name;
@@ -38,23 +62,11 @@ public class LuStrategyStock {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddtime() {
-		return addtime;
+	public String getMarket() {
+		return market;
 	}
-	public void setAddtime(String addtime) {
-		this.addtime = addtime;
-	}
-	public String getQuittime() {
-		return quittime;
-	}
-	public void setQuittime(String quittime) {
-		this.quittime = quittime;
-	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
+	public void setMarket(String market) {
+		this.market = market;
 	}
 	public int getScore() {
 		return score;
@@ -86,18 +98,44 @@ public class LuStrategyStock {
 	public void setShiyinglvttm(Double shiyinglvttm) {
 		this.shiyinglvttm = shiyinglvttm;
 	}
-	public String getUpdate_time() {
-		return update_time;
+	public int getStatus() {
+		return status;
 	}
-	public void setUpdate_time(String update_time) {
-		this.update_time = update_time;
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getAddtime() {
+		return addtime;
+	}
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+	public String getQuittime() {
+		return quittime;
+	}
+	public void setQuittime(String quittime) {
+		this.quittime = quittime;
 	}
 	@Override
 	public String toString() {
 		return "LuStrategyStock [id=" + id + ", code=" + code + ", market=" + market + ", name=" + name + ", addtime="
 				+ addtime + ", quittime=" + quittime + ", status=" + status + ", score=" + score + ", change_rate="
 				+ change_rate + ", curr_price=" + curr_price + ", zongshizhi=" + zongshizhi + ", shiyinglvttm="
-				+ shiyinglvttm + ", update_time=" + update_time + "]";
+				+ shiyinglvttm + ", update_time=" + update_time + ", join_date=" + join_date + ", join_price="
+				+ join_price + ", join_price_fu=" + join_price_fu + ", curr_price_fu=" + curr_price_fu
+				+ ", total_change_rate=" + total_change_rate + "]";
 	}
 	
 }
