@@ -88,6 +88,7 @@ public class DataController {
 			temp.put("flat", luStrategy.getFlat());
 			temp.put("img", img);
 			temp.put("type", luStrategy.getType());
+			temp.put("total_change_rate", df.format(luStrategy.getTotal_change_rate()));
 			
 
 			List<Map<String, Object>> stockList=new ArrayList<Map<String,Object>>();
@@ -102,13 +103,13 @@ public class DataController {
 				Map<String, Object> temp2=new HashMap<String, Object>();
 				temp2.put("code", luStrategyStock.getMarket()+luStrategyStock.getCode());
 				temp2.put("name", luStrategyStock.getName());
-				temp2.put("price", df.format(luStrategyStock.getCurr_price()));
-				temp2.put("change_rate", df.format(luStrategyStock.getChange_rate()));
+				temp2.put("price", df.format(luStrategyStock.getCurr_price()==null?0:luStrategyStock.getCurr_price()));
+				temp2.put("change_rate", df.format(luStrategyStock.getChange_rate()==null?0:luStrategyStock.getChange_rate()));
 				temp2.put("shizhi", luStrategyStock.getZongshizhi());
 				temp2.put("shiyinglv", luStrategyStock.getShiyinglvttm());
-				temp2.put("total_change_rate", df.format(luStrategyStock.getTotal_change_rate()));
+				temp2.put("total_change_rate", df.format(luStrategyStock.getTotal_change_rate()==null?0:luStrategyStock.getTotal_change_rate()));
 				temp2.put("join_date", luStrategyStock.getJoin_date());
-				temp2.put("join_price", df.format(luStrategyStock.getJoin_price()));
+				temp2.put("join_price", df.format(luStrategyStock.getJoin_price()==null?0:luStrategyStock.getJoin_price()));
 				
 				stockList.add(temp2);
 			}

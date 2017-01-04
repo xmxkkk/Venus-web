@@ -22,7 +22,63 @@ module.controller('StockListCtrl',['$scope','$rootScope','$state','$http','$stat
     		,{code:'SH100000',name:'工商银行8',price:3.6,change_rate:"-3.40",shizhi:100000000,shiyinglv:30}
     		,{code:'SH100000',name:'农业银行9',price:3.6,change_rate:"-3.00",shizhi:100000000,shiyinglv:60}
     		,{code:'SH100000',name:'工商银行10',price:3.6,change_rate:"-3.00",shizhi:1000000000,shiyinglv:100}]};*/
+		$scope.lu_redirect=function(code,stockname){
+			/*
+			 * 交易市场
+1 上海A 
+2 深圳A 
+3 上海B 
+4 深圳B 
+5 沪基金 
+6 深基金 
+21 板块
 
+
+股票类型(SECU_TYPE)
+字典项目	字典项目名称
+1		交易所指数
+15		其他指数
+16		A股
+17		中小板股
+18		创业板股
+22		B股
+23		H股
+31		其他股票
+1、沪市
+A股票代码是以60开头
+B股代码是以900开头
+新股申购的代码是以730开头
+配股代码以700开头
+ 
+2、深市
+A股票代码是以00开头
+B股代码是以200开头
+新股申购的代码是以00开头
+配股代码以080开头
+中小板股票以002开头
+创业板股票以300开头。*/
+			var stockcode=code.substring(2);
+			var market=2;
+			if(stockcode.substring(0,2)=="60"){
+				market=1;
+			}
+			var stocktype=16;
+			if(stockcode.substring(0,3)=="002"){
+				stocktype=17;
+			}else if(stockcode.substring(0,3)=="300"){
+				stocktype=18;
+			}
+			if(window.Bridge){
+				url="lufax://stockmarket?market="+market+"&stockcode="+code+"&stocktype="+stocktype+"&stockname="+stockname;
+				window.Bridge.call({
+	                "task":"schema",
+	                "url":url
+	            });
+			}else{
+				console.log('not in app');
+			}
+		}
+	
     	var dataCB=function(){
     		$scope.datas=ObjectFactory.get("datas");
 	    	for(var i=0;i<$scope.datas.length;i++){

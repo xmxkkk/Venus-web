@@ -30,6 +30,14 @@
 						</div>
 					</div>
 				</div>
+				<div>
+					<div class="index-total" style="right:65px;top:10px;">
+						<div style="background:#111f30;color:#ccc;border-radius:8pt 0pt 0 8pt;line-height:19pt;font-size:12pt;">累计涨跌</div>
+					</div>
+					<div class="index-total" style="right:0px;top:10px;display:inline-block;width:50pt;">
+						<div ng-class="{true:'index-total-color1',false:'index-total-color2'}[data.total_change_rate<0]" style="line-height:19pt;font-size:11pt;">{{initZH.total_change_rate}}%</div>
+					</div>
+				</div>
 	    	</div>
 	    	<div ng-hide="isHide" style="text-align:center;background:#f6f3d0;font-size:10pt;line-height:16pt;color:#777;" ng-click="hide()">本结果不构成投资建议，交易风险自负</div>
 			<div style="background:#fff;">
@@ -39,7 +47,7 @@
 					<div class="col col-33" style="text-align:right;">涨跌幅</div>
 				</div>
 				<ion-list>
-				  <ion-item style="padding:0px;margin:0px;border-bottom:0px;" ng-repeat="stock in stocks">
+				  <ion-item style="padding:0px;margin:0px;border-bottom:0px;" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code)">
 					  <div class="row">
 					    <div class="col col-33">
 					    	<div style="font-size:12pt;color:#333333;">{{stock.name}}</div>
