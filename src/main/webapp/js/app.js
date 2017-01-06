@@ -24,10 +24,10 @@ angular.module('starter', ['ionic','starter.base'])
 })
 
 
-.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+.config(function($stateProvider, $urlRouterProvider,$httpProvider,$locationProvider) {
   $stateProvider
-  .state('index', {
-    url: '/index',
+  .state('home', {
+    url: '/home',
     abstract: false,
     controller: 'IndexCtrl',
     cache:false,
@@ -48,7 +48,7 @@ angular.module('starter', ['ionic','starter.base'])
     templateUrl: 'templates/attr.html'
   })
   ;
-  $urlRouterProvider.otherwise('/index');
+  $urlRouterProvider.otherwise('/home');
 
   $httpProvider.defaults.transformRequest=function(obj){
     var str=[];
@@ -60,6 +60,6 @@ angular.module('starter', ['ionic','starter.base'])
   $httpProvider.defaults.headers.post={
     'Content-Type':'application/x-www-form-urlencoded'
   }
-
+  $locationProvider.html5Mode(true);
 
 });

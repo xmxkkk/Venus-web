@@ -1,5 +1,7 @@
 /* Empty. Add your own CSS if you like */
-*{font-family: '微软雅黑'}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, u, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, fieldset, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{
+    font-family: '微软雅黑'
+}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 .clearfix{*+height:1%;}
 .icon-background-color-1{background: #e3170d;color:#fff;}
@@ -32,23 +34,3 @@
 .index-total{position:absolute;right:15pt;bottom:15pt;width:60pt;height:38pt;text-align:center;font-size:12pt;color:#f3f3f3;}
 .index-total-color1{background:#17b03e}
 .index-total-color2{background:#f05457}
-
-
-
-/*
-.tabs-striped.tabs-color-energized .tab-item.tab-item-active, .tabs-striped.tabs-color-energized .tab-item.active, .tabs-striped.tabs-color-energized .tab-item.activated {
-margin-top: -2px;
-color: #e2e2e2;
-border: 0 solid #e2e2e2;
-}
-.tabs-striped.tabs-dark .tabs {
-background-color: #2f4159;
-}
-.tabs-striped.tabs-color-energized .tab-item.tab-item-active, .tabs-striped.tabs-color-energized .tab-item.active, .tabs-striped.tabs-color-energized .tab-item {
-margin-top: -2px;
-color: #e2e2e2;
-border: 0 solid #e2e2e2;
-}
-.tabs-striped.tabs-dark .tabs {
-background-color: #2f4159;
-}*/

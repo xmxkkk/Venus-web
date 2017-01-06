@@ -22,19 +22,18 @@ import venusweb.model.LuStrategy;
 import venusweb.model.LuStrategyStock;
 
 @RestController
-@RequestMapping("/data")
 public class DataController {
 	@Autowired LuStrategyMapper luStrategyMapper;
 	@Autowired LuStrategyStockMapper luStrategyStockMapper;
 	@Value("${fetch-task-image-path}")
 	String imagePath;
 	
-	@RequestMapping("/all/{id}")
+	@RequestMapping("/data/all/{id}")
 	List<Map<String, Object>>  all(@PathVariable("id")Integer id,HttpServletRequest request, HttpServletResponse response){
 		return data(id,request);
 	}
 	
-	@RequestMapping("/all")
+	@RequestMapping("/data/all")
 	List<Map<String, Object>>  all(HttpServletRequest request, HttpServletResponse response){
 		return data(0,request);
 	}
@@ -110,6 +109,9 @@ public class DataController {
 				temp2.put("total_change_rate", df.format(luStrategyStock.getTotal_change_rate()==null?0:luStrategyStock.getTotal_change_rate()));
 				temp2.put("join_date", luStrategyStock.getJoin_date());
 				temp2.put("join_price", df.format(luStrategyStock.getJoin_price()==null?0:luStrategyStock.getJoin_price()));
+				temp2.put("join_date", luStrategyStock.getJoin_date());
+				temp2.put("shijinglv", luStrategyStock.getShijinglv());
+				temp2.put("roe", luStrategyStock.getRoe());
 				
 				stockList.add(temp2);
 			}

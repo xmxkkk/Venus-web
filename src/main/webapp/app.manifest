@@ -1,0 +1,20 @@
+CACHE MANIFEST
+
+CACHE:
+./venus-web/lib/ionic/css/ionic.css
+./venus-web/lib/ionic/js/ionic.bundle.js
+./venus-web/lib/lu_stock.js
+./venus-web/js/app.js
+./venus-web/js/service.js
+./venus-web/js/controller/base.js
+./venus-web/js/controller/index.js
+./venus-web/js/controller/stock_list.js
+./venus-web/js/controller/filter.js
+./venus-web/js/controller/attr.js
+./venus-web/lib/ionic/fonts/ionicons.ttf?v=2.0.1
+
+NETWORK:
+*
+
+SETTINGS:
+prefer-online

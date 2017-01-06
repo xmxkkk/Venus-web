@@ -47,7 +47,7 @@
 					<div class="col col-33" style="text-align:right;">涨跌幅</div>
 				</div>
 				<ion-list>
-				  <ion-item style="padding:0px;margin:0px;border-bottom:0px;" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code)">
+				  <ion-item style="padding:0px;margin:0px;border-bottom:0px;" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code,stock.name)">
 					  <div class="row">
 					    <div class="col col-33">
 					    	<div style="font-size:12pt;color:#333333;">{{stock.name}}</div>

@@ -29,11 +29,15 @@ public interface LuStrategyMapper {
 	LuStrategy findId(@Param("id")int id);
 	
 	@Update("update lu_strategy set title=#{title},attr=#{attr},rate_3month=#{rate_3month},rate_1month=#{rate_1month},update_time=#{update_time},strategy_class=#{strategy_class}"
-			+ ",up=#{up},down=#{down},flat=#{flat},img=#{img},type=#{type},modify_date=#{modify_date},interval_day=#{interval_day},status=#{status},run_status=#{run_status} where id=#{id}")
+			+ ",up=#{up},down=#{down},flat=#{flat},img=#{img},type=#{type},modify_date=#{modify_date},interval_day=#{interval_day},status=#{status},run_status=#{run_status}, "
+			+ "total_change_rate=#{total_change_rate},is_top=#{is_top},ord=#{ord} "
+			+ "where id=#{id}")
 	int update(LuStrategy luStrategy);
 	
-	@Insert("insert into lu_strategy (id,title,attr,rate_3month,rate_1month,update_time,strategy_class,up,down,flat,img,type,modify_date,interval_day,status) values "
-			+ "(#{id},#{title},#{attr},#{rate_3month},#{rate_1month},#{update_time},#{strategy_class},#{up},#{down},#{flat},#{img},#{type},#{modify_date},#{interval_day},#{status})")
+	@Insert("insert into lu_strategy (id,title,attr,rate_3month,rate_1month,update_time,strategy_class,up,down,flat,img,type,modify_date,interval_day"
+			+ ",status,run_status,total_change_rate,is_top,ord) values "
+			+ "(#{id},#{title},#{attr},#{rate_3month},#{rate_1month},#{update_time},#{strategy_class},#{up},#{down},#{flat},#{img},#{type},#{modify_date},#{interval_day}"
+			+ ",#{status},#{run_status},#{total_change_rate},#{is_top},#{ord})")
 	int insert(LuStrategy luStrategy);
 	
 }

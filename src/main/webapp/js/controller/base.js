@@ -21,4 +21,5 @@ module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHisto
     		return "./img/default.jpg"; 
     	}
     };
+    
 }]);

@@ -4,6 +4,9 @@ module.controller('FilterCtrl',['$scope','$rootScope','$state','$http','$statePa
     		$rootScope.condition['price']=[false,false,false];
             $rootScope.condition['shizhi']=[false,false,false];
             $rootScope.condition['shiyinglv']=[false,false,false];
+            $rootScope.condition['shijinglv']=[false,false,false];
+            $rootScope.condition['change_rate']=[false,false];
+            $rootScope.condition['roe']=[false,false,false];
     	}
     	$scope.check=function(condi,idx){
     		if($rootScope.condition[condi][idx]){

@@ -29,14 +29,15 @@ public interface LuStrategyStockMapper {
 	LuStrategyStock findIdCode(@Param("id")int id,@Param("code")String code);
 	
 	@Insert("insert into lu_strategy_stock (id,code,market,name,addtime,quittime,status,score,change_rate,curr_price,zongshizhi,shiyinglvttm,update_time"
-			+ ",join_date,join_price,join_price_fu,curr_price_fu,total_change_rate) values "
+			+ ",join_date,join_price,join_price_fu,curr_price_fu,total_change_rate,weight,shijinglv,roe) values "
 			+ "(#{id},#{code},#{market},#{name},#{addtime},#{quittime},#{status},#{score},#{change_rate},#{curr_price},#{zongshizhi},#{shiyinglvttm},#{update_time}"
-			+ ",#{join_date},#{join_price},#{join_price_fu},#{curr_price_fu},#{total_change_rate})")
+			+ ",#{join_date},#{join_price},#{join_price_fu},#{curr_price_fu},#{total_change_rate},#{weight},#{shijinglv},#{roe})")
 	int insert(LuStrategyStock luStrategyStock);
 	
 	@Update("update lu_strategy_stock set market=#{market},name=#{name},addtime=#{addtime},quittime=#{quittime},status=#{status},score=#{score}"
 			+ ",change_rate=#{change_rate},curr_price=#{curr_price},zongshizhi=#{zongshizhi},shiyinglvttm=#{shiyinglvttm},update_time=#{update_time}"
 			+ ",join_date=#{join_date},join_price=#{join_price},join_price_fu=#{join_price_fu},curr_price_fu=#{curr_price_fu},total_change_rate=#{total_change_rate}"
+			+ ",weight=#{weight},shijinglv=#{shijinglv},roe=#{roe}"
 			+ " where id=#{id} and code=#{code}")
 	int update(LuStrategyStock luStrategyStock);
 	

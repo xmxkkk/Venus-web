@@ -57,6 +57,7 @@ B股代码是以200开头
 配股代码以080开头
 中小板股票以002开头
 创业板股票以300开头。*/
+			stockname=encodeURIComponent(stockname);
 			var stockcode=code.substring(2);
 			var market=2;
 			if(stockcode.substring(0,2)=="60"){
@@ -69,7 +70,7 @@ B股代码是以200开头
 				stocktype=18;
 			}
 			if(window.Bridge){
-				url="lufax://stockmarket?market="+market+"&stockcode="+code+"&stocktype="+stocktype+"&stockname="+stockname;
+				var url="lufax://stockmarket?market="+market+"&stockcode="+stockcode+"&stocktype="+stocktype+"&stockname="+stockname;
 				window.Bridge.call({
 	                "task":"schema",
 	                "url":url
@@ -142,10 +143,7 @@ B股代码是以200开头
 		$scope.$on('filterClose',function(){
 		    console.log($rootScope.condition);
 
-		    $scope.stocks=[];
-			for(var i=0;i<$scope.initZH.stocks.length;i++){
-				$scope.stocks[i]=$scope.initZH.stocks[i];
-			}
+		    dataCB();
 
 		    var newStocks=[];
 		    var condiName='price';
@@ -203,6 +201,65 @@ B股代码是以200开头
 				        }
 				    }else if($rootScope.condition[condiName][2]){
 				        if($scope.stocks[i][condiName]>50){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }
+				}
+				$scope.stocks=newStocks;
+			}
+			
+			newStocks=[];
+			condiName='shijinglv';
+			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
+				for(var i=0;i<$scope.stocks.length;i++){
+					if($rootScope.condition[condiName][0]){
+				       	if($scope.stocks[i][condiName]<3){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }else if($rootScope.condition[condiName][1]){
+				        if($scope.stocks[i][condiName]>=3 && $scope.stocks[i][condiName]<=6){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }else if($rootScope.condition[condiName][2]){
+				        if($scope.stocks[i][condiName]>6){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }
+				}
+				$scope.stocks=newStocks;
+			}
+			
+			newStocks=[];
+			condiName='change_rate';
+			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
+				for(var i=0;i<$scope.stocks.length;i++){
+					if($rootScope.condition[condiName][0]){
+				       	if($scope.stocks[i][condiName]<0){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }else if($rootScope.condition[condiName][1]){
+				        if($scope.stocks[i][condiName]>=0){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }
+				}
+				$scope.stocks=newStocks;
+			}
+			
+			newStocks=[];
+			condiName='roe';
+			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
+				for(var i=0;i<$scope.stocks.length;i++){
+					if($rootScope.condition[condiName][0]){
+				       	if($scope.stocks[i][condiName]<0){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }else if($rootScope.condition[condiName][1]){
+				        if($scope.stocks[i][condiName]>=0 && $scope.stocks[i][condiName]<=20){
+				        	newStocks[newStocks.length]=$scope.stocks[i];
+				        }
+				    }else if($rootScope.condition[condiName][2]){
+				        if($scope.stocks[i][condiName]>20){
 				        	newStocks[newStocks.length]=$scope.stocks[i];
 				        }
 				    }
