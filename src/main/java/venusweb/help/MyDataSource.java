@@ -34,9 +34,6 @@ public class MyDataSource {
 				resource.setProperty("url", "jdbc:mysql://localhost:3306/venusweb?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true");
 				resource.setProperty("username", "root");
 				resource.setProperty("password", "");
-//				resource.setProperty("url", "jdbc:mysql://10.47.37.199:3306/venusweb?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true");
-//				resource.setProperty("username", "root");
-//				resource.setProperty("password", "iefkFEFEd980=");
 				context.getNamingResources().addResource(resource);
 			}
 		};
