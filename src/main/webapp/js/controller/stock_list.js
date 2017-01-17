@@ -79,8 +79,13 @@ B股代码是以200开头
 				console.log('not in app');
 			}
 		}
-	
-    	var dataCB=function(){
+		/*
+		$scope.page={
+	    		pageNo:0,
+	    		pageSize:5,
+	    		isOver:false
+	    	}*/
+    	var dataCB=function(isPage){
     		$scope.datas=ObjectFactory.get("datas");
 	    	for(var i=0;i<$scope.datas.length;i++){
 		    	if($stateParams.id==$scope.datas[i].id){
@@ -90,8 +95,21 @@ B股代码是以200开头
 		    }
 			$scope.stocks=[];
 			for(var i=0;i<$scope.initZH.stocks.length;i++){
-				$scope.stocks[i]=$scope.initZH.stocks[i];
+				$scope.initZH.stocks[i].change_rate_no=parseFloat($scope.initZH.stocks[i].change_rate);
+				if($scope.initZH.stocks[i].change_rate_no>0){
+					if(!$scope.initZH.stocks[i].change_rate.startWith("+")){
+						$scope.initZH.stocks[i].change_rate="+"+$scope.initZH.stocks[i].change_rate;
+					}
+				}
+				// $scope.stocks[i]=$scope.initZH.stocks[i];
 			}
+			$scope.initZH.total_change_rate_no=parseFloat($scope.initZH.total_change_rate);
+			if($scope.initZH.total_change_rate_no>0){
+				if(!$scope.initZH.total_change_rate.startWith("+")){
+					$scope.initZH.total_change_rate="+"+$scope.initZH.total_change_rate;
+				}
+			}
+
 			if($scope.initZH.attr.length>50){
 				$scope.initZH.attr_small=$scope.initZH.attr.substring(0,50);
 				$scope.initZH.attr_small_is=true;
@@ -99,182 +117,223 @@ B股代码是以200开头
 				$scope.initZH.attr_small=$scope.initZH.attr;
 				$scope.initZH.attr_small_is=false;
 			}
-    	}
-    	$scope.isHide=false;
-    	$scope.hide=function(){
-    		$scope.isHide=true;
-    	}
-    	$scope.init=function(){
-			if(!ObjectFactory.get("datas")){
-	    		 $http.post($rootScope.baseUrl+'data/all/'+$stateParams.id,{}).success(function(data){
-	                ObjectFactory.set("datas",data);
-	                dataCB();
-	            });
-	    	}else{
-	    		dataCB();
-	    	}
-			
-	    	$rootScope.condition={};
-    	};
-		$ionicModal.fromTemplateUrl('templates/filterModel.html', {
-		    scope: $scope,
-		    animation: 'slide-down-up'
-		}).then(function(modal) {
-		    $scope.modal = modal;
-		});
-		$scope.openModal = function() {
-		    $scope.modal.show();
-		};
-		$scope.closeModal = function() {
-		    $scope.modal.hide();
-		};
-		
-		$scope.$on('$destroy', function() {
-		    $scope.modal.remove();
-		});
-		
-		$scope.$on('modal.removed', function() {
-		    // 执行动作
-		});
-		$scope.filterAction=function(){
-			$scope.modal.show();
-		};
-
-		$scope.$on('filterClose',function(){
-		    console.log($rootScope.condition);
-
-		    dataCB();
-
-		    var newStocks=[];
-		    var condiName='price';
-		    if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
-			    for(var i=0;i<$scope.stocks.length;i++){
-				    if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<20){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=20 && $scope.stocks[i][condiName]<=50){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][2]){
-				        if($scope.stocks[i][condiName]>50){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }
+			if(isPage){
+				$scope.stocks=$scope.initZH.stocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize);
+				console.log("len="+$scope.stocks.length);
+				$scope.page.loadMore=function(){
+					setTimeout(function(){
+						$scope.page.pageNo++;
+						console.log('pageNo='+$scope.page.pageNo);
+						$scope.stocks=$scope.stocks.concat($scope.initZH.stocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize));
+						if($scope.stocks.length==$scope.initZH.stocks.length){
+							$scope.page.isOver=true;
+							console.log("over");
+						}
+						$scope.$broadcast('scroll.infiniteScrollComplete');
+					},500);
 				}
-				$scope.stocks=newStocks;
-			}
-			
-			newStocks=[];
-			condiName='shizhi';
-			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
-				for(var i=0;i<$scope.stocks.length;i++){
-					if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<10000000000){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=10000000000 && $scope.stocks[i][condiName]<=50000000000){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][2]){
-				        if($scope.stocks[i][condiName]>50000000000){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }
-				}
-				$scope.stocks=newStocks;
-			}
-
-			newStocks=[];
-			condiName='shiyinglv';
-			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
-				for(var i=0;i<$scope.stocks.length;i++){
-					if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<15){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=15 && $scope.stocks[i][condiName]<=50){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][2]){
-				        if($scope.stocks[i][condiName]>50){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }
-				}
-				$scope.stocks=newStocks;
-			}
-			
-			newStocks=[];
-			condiName='shijinglv';
-			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
-				for(var i=0;i<$scope.stocks.length;i++){
-					if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<3){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=3 && $scope.stocks[i][condiName]<=6){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][2]){
-				        if($scope.stocks[i][condiName]>6){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }
-				}
-				$scope.stocks=newStocks;
-			}
-			
-			newStocks=[];
-			condiName='change_rate';
-			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
-				for(var i=0;i<$scope.stocks.length;i++){
-					if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<0){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=0){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }
-				}
-				$scope.stocks=newStocks;
-			}
-			
-			newStocks=[];
-			condiName='roe';
-			if($rootScope.condition[condiName][0] || $rootScope.condition[condiName][1] || $rootScope.condition[condiName][2]){
-				for(var i=0;i<$scope.stocks.length;i++){
-					if($rootScope.condition[condiName][0]){
-				       	if($scope.stocks[i][condiName]<0){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][1]){
-				        if($scope.stocks[i][condiName]>=0 && $scope.stocks[i][condiName]<=20){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }else if($rootScope.condition[condiName][2]){
-				        if($scope.stocks[i][condiName]>20){
-				        	newStocks[newStocks.length]=$scope.stocks[i];
-				        }
-				    }
-				}
-				$scope.stocks=newStocks;
-			}
-
-			/*
-			if(newStocks.length && newStocks.length>0){
-				$scope.stocks=newStocks;
-				console.log($scope.stocks);
 			}else{
-				$scope.stocks=[];
-			}*/
-		});
+				$scope.stocks=new Array();
+				for(var i=0;i<$scope.initZH.stocks.length;i++){
+					$scope.stocks[i]=$scope.initZH.stocks[i];
+				}
+			}
+    	}
+    	
+    	var filterAction=function(){
+    		var condition=ObjectFactory.get("condition");
+    		
+    		if(condition){
+	    		dataCB(false);
+
+			    var newStocks=[];
+			    var condiName='price';
+			    if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
+				    for(var i=0;i<$scope.stocks.length;i++){
+					    if(condition[condiName][0]){
+					       	if($scope.stocks[i][condiName]<20){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][1]){
+					        if($scope.stocks[i][condiName]>=20 && $scope.stocks[i][condiName]<=50){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][2]){
+					        if($scope.stocks[i][condiName]>50){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }
+					}
+					$scope.stocks=newStocks;
+				}
+				
+				newStocks=[];
+				condiName='shizhi';
+				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
+					for(var i=0;i<$scope.stocks.length;i++){
+						if(condition[condiName][0]){
+					       	if($scope.stocks[i][condiName]<10000000000){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][1]){
+					        if($scope.stocks[i][condiName]>=10000000000 && $scope.stocks[i][condiName]<=50000000000){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][2]){
+					        if($scope.stocks[i][condiName]>50000000000){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }
+					}
+					$scope.stocks=newStocks;
+				}
+	
+				newStocks=[];
+				condiName='shiyinglv';
+				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
+					for(var i=0;i<$scope.stocks.length;i++){
+						if(condition[condiName][0]){
+					       	if($scope.stocks[i][condiName]<15){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][1]){
+					        if($scope.stocks[i][condiName]>=15 && $scope.stocks[i][condiName]<=50){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][2]){
+					        if($scope.stocks[i][condiName]>50){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }
+					}
+					$scope.stocks=newStocks;
+				}
+				
+				newStocks=[];
+				condiName='shijinglv';
+				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
+					for(var i=0;i<$scope.stocks.length;i++){
+						if(condition[condiName][0]){
+					       	if($scope.stocks[i][condiName]<3){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][1]){
+					        if($scope.stocks[i][condiName]>=3 && $scope.stocks[i][condiName]<=6){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][2]){
+					        if($scope.stocks[i][condiName]>6){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }
+					}
+					$scope.stocks=newStocks;
+				}
+				
+				newStocks=[];
+				condiName='change_rate';
+				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
+					for(var i=0;i<$scope.stocks.length;i++){
+						if(condition[condiName][0]){
+					       	if($scope.stocks[i][condiName]<0){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][1]){
+					        if($scope.stocks[i][condiName]>=0){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }
+					}
+					$scope.stocks=newStocks;
+				}
+				
+				newStocks=[];
+				condiName='roe';
+				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
+					for(var i=0;i<$scope.stocks.length;i++){
+						if(condition[condiName][0]){
+					       	if($scope.stocks[i][condiName]<0){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][1]){
+					        if($scope.stocks[i][condiName]>=0 && $scope.stocks[i][condiName]<=20){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }else if(condition[condiName][2]){
+					        if($scope.stocks[i][condiName]>20){
+					        	newStocks[newStocks.length]=$scope.stocks[i];
+					        }
+					    }
+					}
+					$scope.stocks=newStocks;
+				}
+				newStocks=[];
+				for(var i=0;i<$scope.stocks.length;i++){
+					newStocks[i]=$scope.stocks[i];
+				}
+
+				$scope.stocks=newStocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize);
+				console.log("len="+$scope.stocks.length);
+				$scope.page.loadMore=function(){
+					setTimeout(function(){
+						$scope.page.pageNo++;
+						console.log('pageNo='+$scope.page.pageNo);
+						$scope.stocks=$scope.stocks.concat(newStocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize));
+						if($scope.stocks.length==newStocks.length){
+							$scope.page.isOver=true;
+							console.log("over");
+						}
+						$scope.$broadcast('scroll.infiniteScrollComplete');
+					},500);
+				}
+
+    		}
+    	}
+    	/*
+    	$scope.showAttr=function(id){
+    		$scope.datas=ObjectFactory.get("datas");
+	    	for(var i=0;i<$scope.datas.length;i++){
+		    	if($stateParams.id==$scope.datas[i].id){
+		    		$scope.initZH=$scope.datas[i];
+		    		break;
+		    	}
+		    }
+		    $scope.old_help=$scope.help;
+    	}*/
+    	$scope.init=function(){
+
+    		$scope.page={
+	    		pageNo:0,
+	    		pageSize:15,
+	    		isOver:false
+	    	}
+
+	    	var condition=ObjectFactory.get("condition");
+    		var isPage=true;
+    		if(condition){
+    			isPage=false;
+    			filterAction();
+    		}else{
+    			if(!ObjectFactory.get("datas")){
+		    		$http.post($rootScope.baseUrl+'data/all/'+$stateParams.id,{}).success(function(data){
+		                ObjectFactory.set("datas",data);
+		                dataCB(isPage);
+		            });
+		    	}else{
+		    		dataCB(isPage);
+		    	}
+    		}
+
+			
+			if(window.Bridge){
+				window.Bridge.call({
+		            "task":"title",
+		            "title":"策略详情"
+		        });
+			}else{
+				console.log('not in app');
+			}
+    	};
     	
     }]
 );

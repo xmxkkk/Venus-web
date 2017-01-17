@@ -1,0 +1,131 @@
+<style type="text/css">
+	
+	.xcontainer{
+		padding-left: 15pt;
+		padding-right: 15pt;
+	}
+	.xitem{
+		border-bottom: 1px solid #d8e2e9;
+		height:65pt;
+	}
+	.xtitle{
+		font-size: 12pt;
+		line-height: 29pt;
+		color: #13334d;
+	}
+	.xfilters{
+		height: 30pt;
+		text-align: center;
+		margin:0 auto;
+	}
+	.xfilter{
+		width: 30%;
+		line-height: 30pt;
+		font-size: 12pt;
+		color: #9dacb6;
+		border-radius:4pt;
+		border:1px solid #9eacb7;
+		text-align: center;
+		display:inline-block;
+	}
+	.xfilter-active{
+		background: #edf2f6;
+		color:#13334d;
+	}
+	.xbar{
+		display: flex;position: absolute;right:0;left:0;bottom:0;width: 100%;z-index: 9;line-height: 35pt;border-top: 1px solid #d8e2e9
+	}
+	.xbtn1{
+		background: #fff;width:33%;color:#11334d;text-align: center;font-size:13pt;
+	}
+	.xbtn1 img{
+		width:14pt;height:14pt;vertical-align: middle;margin-top:-1pt;
+	}
+	.xbtn1.activated{
+		background: #edf2f6;
+	}
+	.xbtn2{
+		background: #fc7946;width:67%;color:#fff;text-align: center;font-size:13pt;
+	}
+	.xbtn2.activated{
+		background: #b05431;color:#b2b2b2;
+	}
+</style>
+<ion-view ng-controller="FilterCtrl" ng-init="init()">
+	<div class="white_content" ng-show="help.isShowHelp">
+    	<div class="help">{{help.title}}</div>
+    	<div class="help-close" ng-click="help.hideHelp()">
+    		<div class="img1 pr"><img src="./img/render/2X/btn_bangzhu2.png"></div>
+    		<div class="img2 pr"><img src="./img/render/2X/btn_bangzhu1.png"></div>
+    	</div>
+    	<div class="help-text">
+    		<div>
+    		{{help.text}}
+    		</div>
+    	</div>
+    </div>
+    <div class="black_overlay" ng-show="help.isShowHelp"></div>
+	<ion-content style="margin-bottom: 35pt;">
+	    <div class="xtips" ng-click="help.showHelp(0)">
+			来自平安证券www.pingan.com提供
+			<img src="./img/render/2X/btn_list_bangzhu1.png" style="width:20pt;">
+		</div>
+		<div class="xcontainer">
+			<div class="xitem">
+				<div class="xtitle">价格</div>
+				<div class="xfilters cb">
+					<div class="xfilter fl" ng-click="check('price',0)" ng-class="{'xfilter-active':condition.price[0]}">小于20</div>
+					<div class="xfilter" ng-click="check('price',1)" ng-class="{'xfilter-active':condition.price[1]}">20-50</div>
+					<div class="xfilter fr" ng-click="check('price',2)" ng-class="{'xfilter-active':condition.price[2]}">大于50</div>
+				</div>
+			</div>
+			<div class="xitem">
+				<div class="xtitle">涨跌幅</div>
+				<div class="xfilters cb">
+					<div class="xfilter fl" ng-click="check('change_rate',0)" ng-class="{'xfilter-active':condition.change_rate[0]}">&lt0</div>
+					<div class="xfilter" ng-click="check('change_rate',1)" ng-class="{'xfilter-active':condition.change_rate[1]}">&gt=0</div>
+					<div class="xfilter" style="border:0;background: #fff;">&nbsp;</div>
+				</div>
+			</div>
+			<div class="xitem">
+				<div class="xtitle">市盈率</div>
+				<div class="xfilters cb">
+					<div class="xfilter fl" ng-click="check('shiyinglv',0)" ng-class="{'xfilter-active':condition.shiyinglv[0]}">小于15</div>
+					<div class="xfilter" ng-click="check('shiyinglv',1)" ng-class="{'xfilter-active':condition.shiyinglv[1]}">15~50</div>
+					<div class="xfilter fr" ng-click="check('shiyinglv',2)" ng-class="{'xfilter-active':condition.shiyinglv[2]}">大于50</div>
+				</div>
+			</div>
+			<div class="xitem">
+				<div class="xtitle">市净率</div>
+				<div class="xfilters cb">
+					<div class="xfilter fl" ng-click="check('shijinglv',0)" ng-class="{'xfilter-active':condition.shijinglv[0]}">小于3</div>
+					<div class="xfilter" ng-click="check('shijinglv',1)" ng-class="{'xfilter-active':condition.shijinglv[1]}">3~6</div>
+					<div class="xfilter fr" ng-click="check('shijinglv',2)" ng-class="{'xfilter-active':condition.shijinglv[2]}">大于6</div>
+				</div>
+			</div>
+			<div class="xitem">
+				<div class="xtitle">净资产收益率</div>
+				<div class="xfilters cb">
+					<div class="xfilter fl" ng-click="check('roe',0)" ng-class="{'xfilter-active':condition.roe[0]}">小于0</div>
+					<div class="xfilter" ng-click="check('roe',1)" ng-class="{'xfilter-active':condition.roe[1]}">0~20</div>
+					<div class="xfilter fr" ng-click="check('roe',2)" ng-class="{'xfilter-active':condition.roe[2]}">大于20</div>
+				</div>
+			</div>
+			<div class="xitem">
+				<div class="xtitle">总市值</div>
+				<div class="xfilters cb">
+					<div class="xfilter fl" ng-click="check('shizhi',0)" ng-class="{'xfilter-active':condition.shizhi[0]}">小于100亿</div>
+					<div class="xfilter" ng-click="check('shizhi',1)" ng-class="{'xfilter-active':condition.shizhi[1]}">100~500</div>
+					<div class="xfilter fr" ng-click="check('shizhi',2)" ng-class="{'xfilter-active':condition.shizhi[2]}">大于500亿</div>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+	<div class="cb xbar">
+		<div class="fl xbtn1" ng-click="clearFilter()">
+		<img src="./img/render/2X/icon_chongzhi.png">
+		<span style="vertical-align: middle;">重置</span>
+		</div>
+		<div class="fr xbtn2" ng-click="closeFilterAction()">确定</div>
+	</div>
+</ion-view>

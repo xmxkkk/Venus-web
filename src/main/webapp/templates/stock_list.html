@@ -1,71 +1,209 @@
-<ion-view>
-	<ion-content class="has-tabs" ng-controller="StockListCtrl" ng-init="init()" style="background:#f3f3f3;z-index:1;">
-	    <div>
-	    	<div style="position:relative;height:182px;overflow:hidden;">
-	    		<img ng-src="{{initZH.img}}" width="100%" height="182px;">
-				<div class="index-mask"></div>
-				<div class="index-name">{{initZH.name}}</div>
-				<div class="mask">{{initZH.attr_small}} <span ng-show="initZH.attr_small_is" ng-click="go('attr',{id:initZH.id})" style="color:#fff;font-style:italic">查看详情&gt&gt</span></div>
-				<div>
-					<div class="index-subtitle" style="top:140px;left:70px;color:#fff;">
-						<div class="row" style="width:100%">
-							<div style="float:left;">
-								<i class="icon ion-arrow-graph-up-right"></i>
-							</div>
-							<div style="padding-left:3pt;float:left;">
-								涨{{initZH.up}}支
-							</div>
-							<div style="float:left;padding-left:15pt;">
-								<i class="icon ion-arrow-graph-down-right"></i>
-							</div>
-							<div style="padding-left:3pt;float:left;">
-								跌{{initZH.down}}支
-							</div>
-							<div style="float:left;padding-left:15pt;">
-								<i class="icon ion-navicon-round"></i>
-							</div>
-							<div style="padding-left:3pt;float:left;">
-								平{{initZH.flat}}支
-							</div>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div class="index-total" style="right:65px;top:10px;">
-						<div style="background:#111f30;color:#ccc;border-radius:8pt 0pt 0 8pt;line-height:19pt;font-size:12pt;">累计涨跌</div>
-					</div>
-					<div class="index-total" style="right:0px;top:10px;display:inline-block;width:50pt;">
-						<div ng-class="{true:'index-total-color1',false:'index-total-color2'}[data.total_change_rate<0]" style="line-height:19pt;font-size:11pt;">{{initZH.total_change_rate}}%</div>
-					</div>
-				</div>
-	    	</div>
-	    	<div ng-hide="isHide" style="text-align:center;background:#f6f3d0;font-size:10pt;line-height:16pt;color:#777;" ng-click="hide()">本结果不构成投资建议，交易风险自负</div>
-			<div style="background:#fff;">
-				<div class="row" style="height:30pt;font-size:12pt;color:#333333;">
-					<div class="col col-33">股票</div>
-					<div class="col col-33" style="text-align:right;">价格</div>
-					<div class="col col-33" style="text-align:right;">涨跌幅</div>
-				</div>
-				<ion-list>
-				  <ion-item style="padding:0px;margin:0px;border-bottom:0px;" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code,stock.name)">
-					  <div class="row">
-					    <div class="col col-33">
-					    	<div style="font-size:12pt;color:#333333;">{{stock.name}}</div>
-					    	<div style="line-height:10px;font-size:10pt;color:#aaaaaa;">{{stock.code}}</div>
-					    </div>
-					    <div class="col col-33" style="text-align:right;padding-top:7pt;">{{stock.price}}</div>
-					    <div class="col col-33" ng-class="{true: 'change_rate_down', false: 'change_rate_up'}[stock.change_rate<0]" style="text-align:right;padding-top:7pt;">{{stock.change_rate}}%</div>
-					  </div>
-					  <div class="row item-text-wrap" style="background:#f8f8f8;margin-left:5px;margin-right:5px;margin-bottom:8px;width:auto;margin-top:-5px;padding:0px;font-size:10pt;color:#777;">
-					 	<span style="padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;"> 入选时间:{{stock.join_date}}，入选价格:{{stock.join_price}}，累计涨跌:<span style="">{{stock.total_change_rate}}%</span></span>
-					  </div>
-				  </ion-item>
-				</ion-list>
+<style type="text/css">
+
+	.xheader{
+		position: relative;
+		top:0pt;
+		overflow: hidden;
+	}
+	.xtitle-bg{
+		position: absolute;
+		top:0;
+		background: #000;
+		opacity:0.5;
+		height: 30pt;
+		z-index: 1;
+		width:100%;
+	}
+	.xtitle{
+		position: absolute;
+		top:0;
+		line-height: 30pt;
+		font-size: 14pt;
+		color: #fff;
+		z-index: 2;
+		clear:both;
+		width:100%;
+	}
+	.xtotalrate-info-1{
+		color:#5eb87b;
+	}
+	.xtotalrate-info-2{
+		color:#697d91;
+	}
+	.xtotalrate-info-3{
+		color:#e4362d;
+	}
+	.xattr{
+		position: absolute;
+		top:40pt;
+		font-size:12pt;
+		line-height: 15pt;
+		color: #fff;
+		padding-left: 10pt;
+		padding-right: 10pt;
+	}
+	.xrate{
+		position: absolute;bottom: 12pt;
+		text-align: center;
+		width:100%;
+	}
+	.xrate span{
+		color:#fff;
+		font-size:12pt;
+		padding-left: 2pt;
+		vertical-align: middle;
+	}
+	.xrate img{
+		vertical-align: middle;
+		width:11pt;
+	}
+	.xstockheader{
+		position: relative;
+		clear: both;
+		line-height:25pt;
+		border-bottom: 1px solid #9dacb6;
+		height: 25pt;
+		color:#13334d;
+		font-size: 12pt;
+		width: 100%;
+	}
+	.xstockitem{
+		height:50pt;
+		border-bottom: 1px solid #d8e2e9;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	}
+	
+	.xstockname{
+		bottom:-4pt;vertical-align: bottom;color:#697d91;
+	}
+	.xstockcode{
+		top:2pt;vertical-align: top;color:#9dacb6;
+	}
+	.xstockrate{
+		margin-right:10pt;line-height: 36pt;width:30%;text-align: right;
+	}
+	.xstockprice{
+		padding-right: 0;line-height: 36pt;color:#697d91;width:30%;text-align: right;
+	}
+	.xstockitem-col1{
+		padding-left: 20pt;height:36pt;
+	}
+	.xstockitem-bottom{
+		position:absolute;bottom:0;height:14pt;width:100%;
+	}
+	.xstockitem-bottom img{
+		
+	}
+	.xstockitem-bottom-right{
+		height:14pt;background: #d8e2e9;color:#697d91;clear:both;
+	}
+	.xbar{
+		display: block;position: absolute;right:0;left:0;bottom:0;width: 100%;z-index: 9;line-height: 35pt;
+		background: #fc7946;color:#fff;text-align: center;font-size:13pt;
+	}
+	.xbar.activated{
+		background: #b05431;color:#b2b2b2;
+	}
+@media screen and (max-width: 320px) {
+    .x1{padding-right: 1pt;font-size: 9px;}
+    .x2{display: none;}
+}
+@media screen and (min-width: 360px) {
+    .x1{padding-right: 7pt;}
+    .xstockitem-bottom-right{
+    	width:240pt;
+    }
+}
+@media screen and (min-width: 375px) {
+    .x1{padding-right: 5pt;}
+    .xstockitem-bottom-right{
+    	width:250pt;
+    }
+}
+@media screen and (min-width: 412px) {
+    .x1{padding-right: 10pt;font-size: 10pt;}
+    .xstockitem-bottom-right{
+    	width: 280pt;
+    }
+}
+</style>
+<ion-view ng-controller="StockListCtrl" ng-init="init()">
+	<div class="white_content" ng-show="help.isShowHelp">
+    	<div class="help">{{help.title}}</div>
+    	<div class="help-close" ng-click="help.hideHelp()">
+    		<div class="img1 pr"><img src="./img/render/2X/btn_bangzhu2.png"></div>
+    		<div class="img2 pr"><img src="./img/render/2X/btn_bangzhu1.png"></div>
+    	</div>
+    	<div class="help-text">
+    		<div>
+    		{{help.text}}
+    		</div>
+    	</div>
+    </div>
+    <div class="black_overlay" ng-show="help.isShowHelp"></div>
+	<ion-content class="has-tabs" style="z-index:1;">
+	    <div class="xtips" ng-click="help.showHelp(0)">
+			来自平安证券www.pingan.com提供
+			<img src="./img/render/2X/btn_list_bangzhu1.png" style="width:20pt;">
+		</div>
+		<div class="xheader">
+			<img ng-src="{{initZH.img}}" width="100%" style="z-index:0;height: 110pt;">
+			<div class="xtitle-bg"></div>
+			<div class="xtitle">
+				<div style="float:left;margin-left: 10pt;">{{initZH.name}}</div>
+				<div style="float:right;margin-right:10pt;font-size:10pt;" ng-class="{'xtotalrate-info-1':initZH.total_change_rate_no<0,'xtotalrate-info-2':initZH.total_change_rate_no==0.0,'xtotalrate-info-3':initZH.total_change_rate_no>0}">{{initZH.total_change_rate}}%</div>
+				<div style="float:right;margin-right:5pt;font-size:10pt;">累计涨跌</div>
+			</div>
+			<div class="xattr"><!---->
+				{{initZH.attr_small}} <span ng-show="initZH.attr_small_is" ng-click="help.showHelp(initZH.id)" style="color:#fff;font-style:italic">查看详情&gt&gt</span>
+			</div>
+			<div class="xrate">
+				<img src="./img/render/2X/icon_list_zhang.png"><span>涨{{initZH.up}}只</span>&nbsp;&nbsp;
+				<img src="./img/render/2X/icon_list_die.png"><span>跌{{initZH.down}}只</span>&nbsp;&nbsp;
+				<img src="./img/render/2X/icon_list_ping.png"><span>平{{initZH.flat}}只</span>
 			</div>
 		</div>
+		<div class="xstockheader">
+			<div style="float:left;padding-left:20pt">
+				股票名称
+			</div>
+			<div style="float:right;width:30%;text-align: right;margin-right:10pt;">
+				涨跌幅
+			</div>
+			<div style="float:right;width:30%;text-align: right;">
+				实时价格
+			</div>
+		</div>
+		<div class="xstocklist">
+			<div class="xstockitem" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code,stock.name)">
+				<div class="cb" style="width: 100%;height:36pt;">
+					<div class="xstockitem-col1 fl">
+						<span class="xstockname pr fz12">{{stock.name}}</span><br>
+						<span class="xstockcode pr fz10">{{stock.code}}</span>
+					</div>
+					<div class="xstockrate fr fz14" ng-class="{'xtotalrate-info-1':stock.change_rate_no<0,'xtotalrate-info-2':stock.change_rate_no==0.0,'xtotalrate-info-3':stock.change_rate_no>0}">
+						{{stock.change_rate}}%
+					</div>
+					<div class="xstockprice fr fz19">
+						{{stock.price}}
+					</div>
+				</div>
+				<div class="xstockitem-bottom cb">
+					<div class="fr fz9 xstockitem-bottom-right">
+						<div class="fl x1">入选时间:{{stock.join_date}}</div>
+						<div class="fl x1">入选价格:{{stock.join_price}}</div>
+						<div class="fl x1">累计涨跌:{{stock.total_change_rate}}%</div>
+					</div>
+					<img class="fr" style="width:14pt;height:14pt;" class="x2" src="./img/render/2X/bg_xiangqing.png">
+				</div>
+			</div>
+			<ion-infinite-scroll ng-if="!page.isOver" on-infinite="page.loadMore()" distance="5%" ></ion-infinite-scroll>
+		</div>
 	</ion-content>
-	<div class="bar bar-footer bar-dark">
-		<div class="title" ng-click="filterAction()">筛选</div>
+	<div class="xbar" ng-click="go('filter',{})">
+		筛&nbsp;&nbsp;选
 	</div>
 	
 </ion-view>

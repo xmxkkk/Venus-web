@@ -47,6 +47,13 @@ angular.module('starter', ['ionic','starter.base'])
     cache:false,
     templateUrl: 'templates/attr.html'
   })
+  .state('filter',{
+    url:'/filter',
+    abstract: false,
+    controller: 'FilterCtrl',
+    cache:false,
+    templateUrl: 'templates/filter.html'
+  })
   ;
   $urlRouterProvider.otherwise('/home');
 
@@ -61,5 +68,33 @@ angular.module('starter', ['ionic','starter.base'])
     'Content-Type':'application/x-www-form-urlencoded'
   }
   $locationProvider.html5Mode(true);
+
+  String.prototype.endWith=function(s){
+    if(s==null||s==""||this.length==0||s.length>this.length)
+       return false;
+    if(this.substring(this.length-s.length)==s)
+       return true;
+    else
+       return false;
+    return true;
+   }
+   String.prototype.startWith=function(s){
+    if(s==null||s==""||this.length==0||s.length>this.length)
+     return false;
+    if(this.substr(0,s.length)==s)
+       return true;
+    else
+       return false;
+    return true;
+   }
+   Array.prototype.slice=function(start,end){
+      var x=new Array();
+      for(var i=0;i<this.length;i++){
+        if(i>=start&&i<end){
+          x[x.length]=this[i];
+        }
+      }
+      return x;
+   }
 
 });

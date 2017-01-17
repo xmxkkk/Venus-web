@@ -1,0 +1,142 @@
+<ion-view>
+	<ion-pane ng-controller="IndexCtrl" ng-init="init()">
+		<ion-tabs class="tabs-striped tabs-top tabs-icon-left tabs-dark tabs-color-energized">
+			<ion-tab title="全部组合" icon-on="ion-ios-list" icon-off="ion-ios-list-outline" on-select="selectTabWithIndex(0)">
+				<ion-scroll style="padding-top:44px;">
+					<div style="padding-top:5px;" ng-repeat="data in datas" ng-click="go('stock_list',{id:data.id})">
+						<div style="position:relative;">
+							<img ng-src="{{data.img?data.img:'./img/default.jpg'}}" alt="" width="100%" height="182px;">
+							<div class="index-mask">&nbsp;</div>
+							<div class="index-name">
+								{{data.name}}
+							</div>
+							<div>
+								<div class="index-subtitle">
+									<div class="row" style="width:100%">
+										<div style="float:left;">
+											<i class="icon ion-arrow-graph-up-right"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											涨{{data.up}}支
+										</div>
+										<div style="float:left;padding-left:15pt;">
+											<i class="icon ion-arrow-graph-down-right"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											跌{{data.down}}支
+										</div>
+										<div style="float:left;padding-left:15pt;">
+											<i class="icon ion-navicon-round"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											平{{data.flat}}支
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="index-total">
+									<div style="line-height:16pt;background:#111f30;color:#ccc;border-radius:8pt 8pt 0 0;">累计涨跌</div>
+									<div ng-class="{true:'index-total-color1',false:'index-total-color2'}[data.total_change_rate<0]" style="line-height:22pt;font-size:14pt;">{{data.total_change_rate}}%</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ion-scroll>
+				
+			</ion-tab>
+			<ion-tab title="价值精选" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline" on-select="selectTabWithIndex(1)">
+			
+				<ion-scroll style="padding-top:44px;">
+					<div style="padding-top:5px;" ng-repeat="data in datas" ng-click="go('stock_list',{id:data.id})">
+						<div style="position:relative;">
+							<img src="{{data.img}}" width="100%" height="182px;">
+							<div class="index-mask">&nbsp;</div>
+							<div class="index-name">
+								{{data.name}}
+							</div>
+							<div>
+								<div class="index-subtitle">
+									<div class="row" style="width:100%">
+										<div style="float:left;">
+											<i class="icon ion-arrow-graph-up-right"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											涨{{data.up}}支
+										</div>
+										<div style="float:left;padding-left:15pt;">
+											<i class="icon ion-arrow-graph-down-right"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											跌{{data.down}}支
+										</div>
+										<div style="float:left;padding-left:15pt;">
+											<i class="icon ion-navicon-round"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											平{{data.flat}}支
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="index-total">
+									<div style="line-height:16pt;background:#111f30;color:#ccc;border-radius:8pt 8pt 0 0;">累计涨跌</div>
+									<div ng-class="{true:'index-total-color1',false:'index-total-color2'}[data.total_change_rate<0]" style="line-height:22pt;font-size:14pt;">{{data.total_change_rate}}%</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</ion-scroll>
+			
+			</ion-tab>
+			<ion-tab title="技术精选" icon-on="ion-ios-pulse-strong" icon-off="ion-ios-pulse" on-select="selectTabWithIndex(2)">
+				<ion-scroll style="padding-top:44px;">
+					<div style="padding-top:5px;" ng-repeat="data in datas" ng-click="go('stock_list',{id:data.id})">
+						<div style="position:relative;">
+							<img src="{{data.img}}" width="100%" height="182px;">
+							<div class="index-mask">&nbsp;</div>
+							<div class="index-name">
+								{{data.name}}
+							</div>
+							<div>
+								<div class="index-subtitle">
+									<div class="row" style="width:100%">
+										<div style="float:left;">
+											<i class="icon ion-arrow-graph-up-right"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											涨{{data.up}}支
+										</div>
+										<div style="float:left;padding-left:15pt;">
+											<i class="icon ion-arrow-graph-down-right"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											跌{{data.down}}支
+										</div>
+										<div style="float:left;padding-left:15pt;">
+											<i class="icon ion-navicon-round"></i>
+										</div>
+										<div style="padding-left:3pt;float:left;">
+											平{{data.flat}}支
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="index-total">
+									<div style="line-height:16pt;background:#111f30;color:#ccc;border-radius:5pt 5pt 0 0;">累计涨跌</div>
+									<div ng-class="{true:'index-total-color1',false:'index-total-color2'}[data.total_change_rate<0]" style="line-height:22pt;font-size:14pt;">{{data.total_change_rate}}%</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</ion-scroll>
+			
+			</ion-tab>
+			
+		</ion-tabs>
+	</ion-pane>
+</ion-view>
