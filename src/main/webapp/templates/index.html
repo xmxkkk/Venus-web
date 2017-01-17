@@ -151,9 +151,7 @@
 	    		<div class="img2 pr"><img src="./img/render/2X/btn_bangzhu1.png"></div>
 	    	</div>
 	    	<div class="help-text">
-	    		<div>
-	    		{{help.text}}
-	    		</div>
+	    		<div ng-bind-html="help.text|trusted"></div>
 	    	</div>
 	    </div>
 	    <div class="black_overlay" ng-show="help.isShowHelp"></div>

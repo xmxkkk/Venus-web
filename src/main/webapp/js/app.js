@@ -22,6 +22,13 @@ angular.module('starter', ['ionic','starter.base'])
     }
   });
 })
+.filter(  
+    'trusted', ['$sce', function ($sce) {  
+        return function (text) {  
+            return $sce.trustAsHtml(text);  
+        }  
+    }]  
+)  
 
 
 .config(function($stateProvider, $urlRouterProvider,$httpProvider,$locationProvider) {

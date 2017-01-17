@@ -106,6 +106,9 @@
 	.xbar.activated{
 		background: #b05431;color:#b2b2b2;
 	}
+	.font-style-1{
+		padding-top:50pt;font-size: 12pt;color:#9dacb6;text-align: center;
+	}
 @media screen and (max-width: 320px) {
     .x1{padding-right: 1pt;font-size: 9px;}
     .x2{display: none;}
@@ -137,9 +140,7 @@
     		<div class="img2 pr"><img src="./img/render/2X/btn_bangzhu1.png"></div>
     	</div>
     	<div class="help-text">
-    		<div>
-    		{{help.text}}
-    		</div>
+    		<div ng-bind-html="help.text|trusted"></div>
     	</div>
     </div>
     <div class="black_overlay" ng-show="help.isShowHelp"></div>
@@ -177,27 +178,32 @@
 			</div>
 		</div>
 		<div class="xstocklist">
-			<div class="xstockitem" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code,stock.name)">
-				<div class="cb" style="width: 100%;height:36pt;">
-					<div class="xstockitem-col1 fl">
-						<span class="xstockname pr fz12">{{stock.name}}</span><br>
-						<span class="xstockcode pr fz10">{{stock.code}}</span>
+			<div ng-show="stocks && stocks.length>0">
+				<div class="xstockitem" ng-repeat="stock in stocks" ng-click="lu_redirect(stock.code,stock.name)">
+					<div class="cb" style="width: 100%;height:36pt;">
+						<div class="xstockitem-col1 fl">
+							<span class="xstockname pr fz12">{{stock.name}}</span><br>
+							<span class="xstockcode pr fz10">{{stock.code}}</span>
+						</div>
+						<div class="xstockrate fr fz14" ng-class="{'xtotalrate-info-1':stock.change_rate_no<0,'xtotalrate-info-2':stock.change_rate_no==0.0,'xtotalrate-info-3':stock.change_rate_no>0}">
+							{{stock.change_rate}}%
+						</div>
+						<div class="xstockprice fr fz19">
+							{{stock.price}}
+						</div>
 					</div>
-					<div class="xstockrate fr fz14" ng-class="{'xtotalrate-info-1':stock.change_rate_no<0,'xtotalrate-info-2':stock.change_rate_no==0.0,'xtotalrate-info-3':stock.change_rate_no>0}">
-						{{stock.change_rate}}%
-					</div>
-					<div class="xstockprice fr fz19">
-						{{stock.price}}
+					<div class="xstockitem-bottom cb">
+						<div class="fr fz9 xstockitem-bottom-right">
+							<div class="fl x1">入选时间:{{stock.join_date}}</div>
+							<div class="fl x1">入选价格:{{stock.join_price}}</div>
+							<div class="fl x1">累计涨跌:{{stock.total_change_rate}}%</div>
+						</div>
+						<img class="fr" style="width:14pt;height:14pt;" class="x2" src="./img/render/2X/bg_xiangqing.png">
 					</div>
 				</div>
-				<div class="xstockitem-bottom cb">
-					<div class="fr fz9 xstockitem-bottom-right">
-						<div class="fl x1">入选时间:{{stock.join_date}}</div>
-						<div class="fl x1">入选价格:{{stock.join_price}}</div>
-						<div class="fl x1">累计涨跌:{{stock.total_change_rate}}%</div>
-					</div>
-					<img class="fr" style="width:14pt;height:14pt;" class="x2" src="./img/render/2X/bg_xiangqing.png">
-				</div>
+			</div>
+			<div ng-hide="stocks && stocks.length>0" class="font-style-1">
+				没有符合筛选条件的信息
 			</div>
 			<ion-infinite-scroll ng-if="!page.isOver" on-infinite="page.loadMore()" distance="5%" ></ion-infinite-scroll>
 		</div>
