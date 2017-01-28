@@ -16,8 +16,16 @@ module.controller('FilterCtrl',['$scope','$rootScope','$state','$http','$statePa
 
             if(window.Bridge){
                 window.Bridge.call({
-                    "task":"title",
-                    "title":"筛选"
+            	    "task":"navigation_bar",
+            	 	"module":"common",
+            	 	"naviBar":{
+            	 		color:'ffffff',
+            	 		titleColor:'13334D',
+            	 		title:'筛选'
+            	 	},
+            	 	"leftView":{
+            	 		color:"526bc2"
+            	 	}
                 });
             }else{
                 console.log('not in app');

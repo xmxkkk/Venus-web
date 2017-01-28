@@ -27,11 +27,19 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
             ObjectFactory.set("condition",null);
 
             $scope.selectTabWithIndex($scope.tabIdx);
-
+            
             if(window.Bridge){
-                window.Bridge.call({
-                    "task":"title",
-                    "title":"智能选股"
+            	window.Bridge.call({
+            	    "task":"navigation_bar",
+            	 	"module":"common",
+            	 	"naviBar":{
+            	 		color:'ffffff',
+            	 		titleColor:'13334D',
+            	 		title:'智能选股'
+            	 	},
+            	 	"leftView":{
+            	 		color:"526bc2"
+            	 	}
                 });
             }else{
                 console.log('not in app');

@@ -75,6 +75,7 @@ B股代码是以200开头
 	                "task":"schema",
 	                "url":url
 	            });
+				
 			}else{
 				console.log('not in app');
 			}
@@ -327,9 +328,17 @@ B股代码是以200开头
 			
 			if(window.Bridge){
 				window.Bridge.call({
-		            "task":"title",
-		            "title":"策略详情"
-		        });
+            	    "task":"navigation_bar",
+            	 	"module":"common",
+            	 	"naviBar":{
+            	 		color:'ffffff',
+            	 		titleColor:'13334D',
+            	 		title:'策略详情'
+            	 	},
+            	 	"leftView":{
+            	 		color:"526bc2"
+            	 	}
+                });
 			}else{
 				console.log('not in app');
 			}
