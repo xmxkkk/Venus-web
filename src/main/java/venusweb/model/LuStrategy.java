@@ -1,4 +1,5 @@
 package venusweb.model;
+
 public class LuStrategy {
 	int id;
 	String title;

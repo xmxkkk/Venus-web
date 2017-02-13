@@ -18,9 +18,11 @@ import com.alibaba.fastjson.JSONArray;
 
 import venusweb.dao.LuStrategyMapper;
 import venusweb.dao.LuStrategyStockMapper;
+import venusweb.dao.OtConfigMapper;
 import venusweb.help.URLUtil;
 import venusweb.model.LuStrategy;
 import venusweb.model.LuStrategyStock;
+import venusweb.model.OtConfig;
 
 @Component
 public class FetchTask {
@@ -37,6 +39,8 @@ public class FetchTask {
 	LuStrategyMapper luStrategyMapper;
 	@Autowired
 	LuStrategyStockMapper luStrategyStockMapper;
+	@Autowired
+	OtConfigMapper otConfigMapper;
 	
 	@Autowired
 	URLUtil URLUtil;
@@ -163,6 +167,20 @@ public class FetchTask {
 								luStrategyStockMapper.deleteIdCode(dbLuStrategyStock.getId(), dbLuStrategyStock.getCode());
 							}
 						}
+					}
+				}
+				
+				params.clear();
+				params.add(String.valueOf(3));
+				json=URLUtil.url2str(venusweb.help.StringUtil.template(url,params), false);
+				if(!StringUtil.isBlank(json)){
+					OtConfig otConfig=JSONArray.parseObject(json,OtConfig.class);
+					
+					OtConfig dbOtConfig=otConfigMapper.find(otConfig.getName());
+					if(dbOtConfig==null){
+						otConfigMapper.insert(otConfig);
+					}else{
+						otConfigMapper.update(otConfig);
 					}
 				}
 			}

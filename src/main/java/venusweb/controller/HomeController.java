@@ -58,7 +58,6 @@ public class HomeController {
 		}else{
 			return "error1";
 		}
-		
 	}
 	
 	@RequestMapping(value="/upl0ad/{password}", method=RequestMethod.POST)  

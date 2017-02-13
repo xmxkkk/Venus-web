@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import venusweb.dao.LuStrategyMapper;
 import venusweb.dao.LuStrategyStockMapper;
+import venusweb.dao.OtConfigMapper;
 import venusweb.model.LuStrategy;
 import venusweb.model.LuStrategyStock;
+import venusweb.model.OtConfig;
 
 @RestController
 public class DataController {
 	@Autowired LuStrategyMapper luStrategyMapper;
 	@Autowired LuStrategyStockMapper luStrategyStockMapper;
+	@Autowired OtConfigMapper otConfigMapper;
 	@Value("${fetch-task-image-path}")
 	String imagePath;
 	
@@ -45,14 +48,19 @@ public class DataController {
 		
 		List<Map<String, Object>> result=new ArrayList<Map<String,Object>>();
 		
-		List<LuStrategy> list=null;
-		if(id==0){
-			list=luStrategyMapper.findStatus(1);
-		}else{
-			LuStrategy luStrategy=luStrategyMapper.findId(id);
-			list=new ArrayList<LuStrategy>();
-			list.add(luStrategy);
+		List<LuStrategy> list=new ArrayList<LuStrategy>();
+		
+		OtConfig otConfig=otConfigMapper.find("OPEN_PAGE");
+		if(otConfig.getValue().equals("1")){
+			if(id==0){
+				list=luStrategyMapper.findStatus(1);
+			}else{
+				LuStrategy luStrategy=luStrategyMapper.findId(id);
+				list=new ArrayList<LuStrategy>();
+				list.add(luStrategy);
+			}
 		}
+		
 		for(int i=0;i<list.size();i++){
 			Map<String, Object> temp=new HashMap<String, Object>();
 			
