@@ -2,19 +2,19 @@ var module=angular.module('starter.base', ['ionic','starter.services']);
 
 module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHistory','$stateParams','ObjectFactory'
   ,function($rootScope,$state,$ionicModal,$location,$http,$ionicHistory,$stateParams,ObjectFactory){
-	$rootScope.$state = $state;  
-    $rootScope.$stateParams = $stateParams;  
+	$rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
     $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
-        $rootScope.previousState_name = fromState.name;  
-        $rootScope.previousState_params = fromParams;  
+        $rootScope.previousState_name = fromState.name;
+        $rootScope.previousState_params = fromParams;
         event.preventDefault();
-    });  
+    });
     $rootScope.back = function() {
-        $state.go($rootScope.previousState_name,$rootScope.previousState_params);  
-    };  
-    
+        $state.go($rootScope.previousState_name,$rootScope.previousState_params);
+    };
+
     $rootScope.go=function(page,params){
-      console.log(page+"/"+params.id);
+    //   console.log(page+"/"+params.id);
       $state.go(page,params);
     };
     if(document.domain=="localhost"||document.domain=="127.0.0.1"||document.domain=="192.168.31.150"){
@@ -27,9 +27,9 @@ module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHisto
     }
     $rootScope.getImage = function(src) {
     	if (src !== "") {
-    	    return src;  
+    	    return src;
     	} else {
-    		return "./img/default.jpg"; 
+    		return "./img/default.jpg";
     	}
     };
     $rootScope.help={
@@ -41,7 +41,7 @@ module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHisto
             if(id>0){
                 $rootScope.help.title_old=$rootScope.help.title;
                 $rootScope.help.text_old=$rootScope.help.text;
-                
+
                 var initZH;
                 var datas=ObjectFactory.get("datas");
                 for(var i=0;i<datas.length;i++){
@@ -59,7 +59,7 @@ module.run(['$rootScope','$state','$ionicModal','$location','$http','$ionicHisto
             if($rootScope.help.title_old){
                 $rootScope.help.title=$rootScope.help.title_old;
                 $rootScope.help.text=$rootScope.help.text_old;
-                
+
                 $rootScope.help.title_old=null;
                 $rootScope.help.text_old=null;
             }

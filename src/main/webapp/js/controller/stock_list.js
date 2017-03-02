@@ -8,7 +8,7 @@ module.controller('StockListCtrl',['$scope','$rootScope','$state','$http','$stat
     		,{i:3,id:1003,name:"环保概念",up:8,down:10,flat:0,img:"./img/index_top_6.jpg"}
     		,{i:4,id:1004,name:"国际品牌",up:8,down:10,flat:0,img:"./img/index_top_4.jpg"}
     		,{i:5,id:1005,name:"出口",up:8,down:10,flat:0,img:"./img/index_top_5.jpg"}
-    		
+
     		];*/
     	/*
     	$scope.initZH={id:1000,name:"中医药概念",attr:"趋势投资策略，低频交易，出手稳健，冷静的趋势派。",up:11,down:10,flat:0,img:"./img/index_top_2.jpg"
@@ -25,12 +25,12 @@ module.controller('StockListCtrl',['$scope','$rootScope','$state','$http','$stat
 		$scope.lu_redirect=function(code,stockname){
 			/*
 			 * 交易市场
-1 上海A 
-2 深圳A 
-3 上海B 
-4 深圳B 
-5 沪基金 
-6 深基金 
+1 上海A
+2 深圳A
+3 上海B
+4 深圳B
+5 沪基金
+6 深基金
 21 板块
 
 
@@ -49,7 +49,7 @@ A股票代码是以60开头
 B股代码是以900开头
 新股申购的代码是以730开头
 配股代码以700开头
- 
+
 2、深市
 A股票代码是以00开头
 B股代码是以200开头
@@ -75,7 +75,7 @@ B股代码是以200开头
 	                "task":"schema",
 	                "url":url
 	            });
-				
+
 			}else{
 				console.log('not in app');
 			}
@@ -120,11 +120,11 @@ B股代码是以200开头
 			}
 			if(isPage){
 				$scope.stocks=$scope.initZH.stocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize);
-				console.log("len="+$scope.stocks.length);
+				// console.log("len="+$scope.stocks.length);
 				$scope.page.loadMore=function(){
 					setTimeout(function(){
 						$scope.page.pageNo++;
-						console.log('pageNo='+$scope.page.pageNo);
+						// console.log('pageNo='+$scope.page.pageNo);
 						$scope.stocks=$scope.stocks.concat($scope.initZH.stocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize));
 						if($scope.stocks.length==$scope.initZH.stocks.length){
 							$scope.page.isOver=true;
@@ -140,10 +140,10 @@ B股代码是以200开头
 				}
 			}
     	}
-    	
+
     	var filterAction=function(){
     		var condition=ObjectFactory.get("condition");
-    		
+
     		if(condition){
 	    		dataCB(false);
 
@@ -167,7 +167,7 @@ B股代码是以200开头
 					}
 					$scope.stocks=newStocks;
 				}
-				
+
 				newStocks=[];
 				condiName='shizhi';
 				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
@@ -188,7 +188,7 @@ B股代码是以200开头
 					}
 					$scope.stocks=newStocks;
 				}
-	
+
 				newStocks=[];
 				condiName='shiyinglv';
 				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
@@ -209,7 +209,7 @@ B股代码是以200开头
 					}
 					$scope.stocks=newStocks;
 				}
-				
+
 				newStocks=[];
 				condiName='shijinglv';
 				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
@@ -230,7 +230,7 @@ B股代码是以200开头
 					}
 					$scope.stocks=newStocks;
 				}
-				
+
 				newStocks=[];
 				condiName='change_rate';
 				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
@@ -247,7 +247,7 @@ B股代码是以200开头
 					}
 					$scope.stocks=newStocks;
 				}
-				
+
 				newStocks=[];
 				condiName='roe';
 				if(condition[condiName][0] || condition[condiName][1] || condition[condiName][2]){
@@ -274,11 +274,11 @@ B股代码是以200开头
 				}
 
 				$scope.stocks=newStocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize);
-				console.log("len="+$scope.stocks.length);
+				// console.log("len="+$scope.stocks.length);
 				$scope.page.loadMore=function(){
 					setTimeout(function(){
 						$scope.page.pageNo++;
-						console.log('pageNo='+$scope.page.pageNo);
+						// console.log('pageNo='+$scope.page.pageNo);
 						$scope.stocks=$scope.stocks.concat(newStocks.slice($scope.page.pageNo*$scope.page.pageSize,($scope.page.pageNo+1)*$scope.page.pageSize));
 						if($scope.stocks.length==newStocks.length){
 							$scope.page.isOver=true;
@@ -325,7 +325,7 @@ B股代码是以200开头
 		    	}
     		}
 
-			
+
 			if(window.Bridge){
 				window.Bridge.call({
             	    "task":"navigation_bar",
@@ -343,6 +343,6 @@ B股代码是以200开头
 				console.log('not in app');
 			}
     	};
-    	
+
     }]
 );

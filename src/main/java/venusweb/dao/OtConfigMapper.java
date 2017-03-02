@@ -3,7 +3,6 @@ package venusweb.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import venusweb.model.OtConfig;
@@ -21,6 +20,4 @@ public interface OtConfigMapper {
 	@Insert("update ot_config set name=#{name},title=#{title},`value`=#{value},status=#{status} where id=#{id}")
 	int update(OtConfig otConfig);
 
-	@Update("")
-	void update(String sql);
 }

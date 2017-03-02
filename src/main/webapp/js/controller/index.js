@@ -4,10 +4,10 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
         /*
         $interval(function(){
             var idx=parseInt(ObjectFactory.get('idx'));
-            console.log("auto:"+idx);  
-            $ionicTabsDelegate.select(idx);  
+            console.log("auto:"+idx);
+            $ionicTabsDelegate.select(idx);
         },10,1);*/
-        
+
         $scope.init=function(){
             $scope.tabIdx=0;
             $http.post($rootScope.baseUrl+'data/all',{}).success(function(data){
@@ -18,7 +18,7 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
                             data[i].total_change_rate="+"+data[i].total_change_rate;
                         }
                     }
-                    console.log(data[i].total_change_rate_no);
+                    // console.log(data[i].total_change_rate_no);
                 }
                 $scope.datas=data;
 
@@ -27,7 +27,7 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
             ObjectFactory.set("condition",null);
 
             $scope.selectTabWithIndex($scope.tabIdx);
-            
+
             if(window.Bridge){
             	window.Bridge.call({
             	    "task":"navigation_bar",
