@@ -1,5 +1,5 @@
-module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$stateParams','$location','$ionicHistory','$ionicTabsDelegate','ObjectFactory','$interval'
-    ,function($scope,$rootScope,$state,$http,$stateParams,$location,$ionicHistory,$ionicTabsDelegate,ObjectFactory,$interval){
+module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$stateParams','$location','$ionicHistory','$ionicTabsDelegate','ObjectFactory','$interval','$ionicScrollDelegate'
+    ,function($scope,$rootScope,$state,$http,$stateParams,$location,$ionicHistory,$ionicTabsDelegate,ObjectFactory,$interval,$ionicScrollDelegate){
     	//$rootScope.idx=0;
         /*
         $interval(function(){
@@ -49,7 +49,7 @@ module.controller('IndexCtrl',['$scope','$rootScope','$state','$http','$statePar
 
     	$scope.selectTabWithIndex = function(index) {
             $scope.tabIdx=index;
-
+			$ionicScrollDelegate.scrollTop();
             $scope.img0="./img/render/2X/btn_list_celue1.png";
             $scope.img1="./img/render/2X/btn_list_jiage1.png";
             $scope.img2="./img/render/2X/btn_list_jishu1.png";
